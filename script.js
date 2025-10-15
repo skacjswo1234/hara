@@ -165,6 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         if (mobileVideo) {
             // 모바일 비디오는 무한 재생, 사용자 제어 불가
+            mobileVideo.setAttribute('playsinline', 'true');
+            mobileVideo.setAttribute('webkit-playsinline', 'true');
+            mobileVideo.setAttribute('x5-playsinline', 'true');
+            mobileVideo.setAttribute('x5-video-player-type', 'h5');
+            mobileVideo.setAttribute('x5-video-player-fullscreen', 'false');
+            
             mobileVideo.play().catch(e => {
                 console.log('모바일 비디오 자동재생 실패:', e);
             });
@@ -183,6 +189,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             mobileVideo.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 전체화면 방지
+            mobileVideo.addEventListener('webkitbeginfullscreen', (e) => {
+                e.preventDefault();
+                return false;
+            });
+            
+            mobileVideo.addEventListener('webkitendfullscreen', (e) => {
                 e.preventDefault();
                 return false;
             });
