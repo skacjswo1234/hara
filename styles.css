@@ -1653,9 +1653,8 @@ html {
 /* 플로팅 버튼 */
 .floating-buttons {
     position: fixed;
-    top: 50%;
+    bottom: 20px;
     right: 20px;
-    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -1711,6 +1710,7 @@ html {
 /* 모바일에서 플로팅 버튼 */
 @media (max-width: 768px) {
     .floating-buttons {
+        bottom: 15px;
         right: 15px;
         gap: 12px;
     }
@@ -1724,6 +1724,7 @@ html {
 
 @media (max-width: 480px) {
     .floating-buttons {
+        bottom: 10px;
         right: 10px;
         gap: 10px;
     }
