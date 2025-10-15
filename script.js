@@ -151,85 +151,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 히어로 비디오 자동 재생 (반응형)
+// 히어로 비디오 제어 (데스크톱만)
 document.addEventListener('DOMContentLoaded', () => {
     const desktopVideo = document.querySelector('.desktop-video');
-    const mobileVideo = document.querySelector('.mobile-video');
     
-    if (window.innerWidth > 768) {
-        if (desktopVideo) {
-            desktopVideo.play().catch(e => {
-                console.log('데스크톱 비디오 자동재생 실패:', e);
-            });
-        }
-    } else {
-        if (mobileVideo) {
-            // 모바일 비디오는 무한 재생, 사용자 제어 불가
-            mobileVideo.setAttribute('playsinline', 'true');
-            mobileVideo.setAttribute('webkit-playsinline', 'true');
-            mobileVideo.setAttribute('x5-playsinline', 'true');
-            mobileVideo.setAttribute('x5-video-player-type', 'h5');
-            mobileVideo.setAttribute('x5-video-player-fullscreen', 'false');
-            
-            mobileVideo.play().catch(e => {
-                console.log('모바일 비디오 자동재생 실패:', e);
-            });
-            
-            // 모바일 비디오 사용자 상호작용 완전 차단
-            mobileVideo.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            });
-            
-            mobileVideo.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            });
-            
-            mobileVideo.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-                return false;
-            });
-            
-            // 전체화면 방지
-            mobileVideo.addEventListener('webkitbeginfullscreen', (e) => {
-                e.preventDefault();
-                return false;
-            });
-            
-            mobileVideo.addEventListener('webkitendfullscreen', (e) => {
-                e.preventDefault();
-                return false;
-            });
-        }
+    if (window.innerWidth > 768 && desktopVideo) {
+        // 데스크톱: 자동재생
+        desktopVideo.play().catch(e => {
+            console.log('데스크톱 비디오 자동재생 실패:', e);
+        });
     }
 });
 
 // 윈도우 리사이즈 시 비디오 제어
 window.addEventListener('resize', () => {
     const desktopVideo = document.querySelector('.desktop-video');
-    const mobileVideo = document.querySelector('.mobile-video');
     
-    if (window.innerWidth > 768) {
-        if (desktopVideo) {
-            desktopVideo.play().catch(e => {
-                console.log('데스크톱 비디오 자동재생 실패:', e);
-            });
-        }
-        if (mobileVideo) {
-            mobileVideo.pause();
-        }
-    } else {
-        if (mobileVideo) {
-            mobileVideo.play().catch(e => {
-                console.log('모바일 비디오 자동재생 실패:', e);
-            });
-        }
-        if (desktopVideo) {
-            desktopVideo.pause();
-        }
+    if (window.innerWidth > 768 && desktopVideo) {
+        desktopVideo.play().catch(e => {
+            console.log('데스크톱 비디오 자동재생 실패:', e);
+        });
+    } else if (desktopVideo) {
+        desktopVideo.pause();
     }
 });
 
