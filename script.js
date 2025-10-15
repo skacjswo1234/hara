@@ -151,21 +151,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 히어로 비디오 제어 (데스크톱만)
+// 히어로 비디오 제어 (데스크톱만) 및 모바일 이미지 슬라이드쇼
 document.addEventListener('DOMContentLoaded', () => {
     const desktopVideo = document.querySelector('.desktop-video');
+    const slideImages = document.querySelectorAll('.slide-image');
     
     if (window.innerWidth > 768 && desktopVideo) {
         // 데스크톱: 자동재생
         desktopVideo.play().catch(e => {
             console.log('데스크톱 비디오 자동재생 실패:', e);
         });
+    } else if (window.innerWidth <= 768 && slideImages.length > 0) {
+        // 모바일: 이미지 슬라이드쇼 시작
+        startMobileSlideshow();
     }
 });
+
+// 모바일 이미지 슬라이드쇼 함수
+function startMobileSlideshow() {
+    const slideImages = document.querySelectorAll('.slide-image');
+    console.log('모바일 슬라이드쇼 시작, 이미지 개수:', slideImages.length);
+    
+    if (slideImages.length === 0) {
+        console.log('슬라이드 이미지를 찾을 수 없습니다.');
+        return;
+    }
+    
+    let currentSlide = 0;
+    
+    function showNextSlide() {
+        console.log('슬라이드 전환:', currentSlide);
+        // 현재 슬라이드 숨기기
+        slideImages[currentSlide].classList.remove('active');
+        
+        // 다음 슬라이드로 이동
+        currentSlide = (currentSlide + 1) % slideImages.length;
+        
+        // 다음 슬라이드 보이기
+        slideImages[currentSlide].classList.add('active');
+    }
+    
+    // 2초마다 슬라이드 전환
+    setInterval(showNextSlide, 2000);
+}
 
 // 윈도우 리사이즈 시 비디오 제어
 window.addEventListener('resize', () => {
     const desktopVideo = document.querySelector('.desktop-video');
+    const slideImages = document.querySelectorAll('.slide-image');
     
     if (window.innerWidth > 768 && desktopVideo) {
         desktopVideo.play().catch(e => {
@@ -173,6 +206,11 @@ window.addEventListener('resize', () => {
         });
     } else if (desktopVideo) {
         desktopVideo.pause();
+    }
+    
+    // 모바일로 전환 시 슬라이드쇼 시작
+    if (window.innerWidth <= 768 && slideImages.length > 0) {
+        startMobileSlideshow();
     }
 });
 
