@@ -28,6 +28,8 @@ body {
     transition: var(--transition);
     font-weight: 500;
     letter-spacing: 0.3px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
 .container {
@@ -1582,4 +1584,89 @@ section {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #2980b9;
+}
+
+/* 플로팅 버튼 */
+.floating-buttons {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.floating-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+    color: white;
+}
+
+.phone-btn {
+    background: #25D366;
+}
+
+.phone-btn:hover {
+    background: #20C55A;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.kakao-btn {
+    background: #FEE500;
+    color: #3C1E1E;
+}
+
+.kakao-btn:hover {
+    background: #FFE55C;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4);
+}
+
+.top-btn {
+    background: var(--secondary-color);
+}
+
+.top-btn:hover {
+    background: #2980b9;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* 모바일에서 플로팅 버튼 */
+@media (max-width: 768px) {
+    .floating-buttons {
+        right: 15px;
+        gap: 12px;
+    }
+    
+    .floating-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-buttons {
+        right: 10px;
+        gap: 10px;
+    }
+    
+    .floating-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }

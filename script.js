@@ -195,6 +195,51 @@ window.addEventListener('resize', () => {
     console.log('화면 크기 변경됨:', window.innerWidth);
 });
 
+// 플로팅 버튼 기능
+document.addEventListener('DOMContentLoaded', () => {
+    const phoneBtn = document.getElementById('phoneBtn');
+    const kakaoBtn = document.getElementById('kakaoBtn');
+    const topBtn = document.getElementById('topBtn');
+    
+    // 전화 버튼 클릭
+    if (phoneBtn) {
+        phoneBtn.addEventListener('click', () => {
+            window.location.href = 'tel:010-1234-5678';
+        });
+    }
+    
+    // 카카오톡 버튼 클릭
+    if (kakaoBtn) {
+        kakaoBtn.addEventListener('click', () => {
+            // 카카오톡 채널 링크 (실제 채널 URL로 변경 필요)
+            window.open('https://pf.kakao.com/_your_channel_id', '_blank');
+        });
+    }
+    
+    // TOP 버튼 클릭
+    if (topBtn) {
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // 스크롤 시 TOP 버튼 표시/숨김
+    window.addEventListener('scroll', () => {
+        if (topBtn) {
+            if (window.scrollY > 300) {
+                topBtn.style.opacity = '1';
+                topBtn.style.visibility = 'visible';
+            } else {
+                topBtn.style.opacity = '0.7';
+                topBtn.style.visibility = 'visible';
+            }
+        }
+    });
+});
+
 // 스크롤 진행률 표시
 function createScrollProgress() {
     const progressBar = document.createElement('div');
