@@ -151,33 +151,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 히어로 비디오 자동 재생 (모바일 대응)
-const heroVideo = document.querySelector('.hero-video');
-if (heroVideo) {
-    // 모바일에서는 비디오 자동재생 방지
-    if (window.innerWidth <= 768) {
-        heroVideo.pause();
-        heroVideo.style.display = 'none';
+// 히어로 비디오 자동 재생 (반응형)
+document.addEventListener('DOMContentLoaded', () => {
+    const desktopVideo = document.querySelector('.desktop-video');
+    const mobileVideo = document.querySelector('.mobile-video');
+    
+    if (window.innerWidth > 768) {
+        if (desktopVideo) {
+            desktopVideo.play().catch(e => {
+                console.log('데스크톱 비디오 자동재생 실패:', e);
+            });
+        }
     } else {
-        // 데스크톱에서는 비디오 자동재생
-        heroVideo.play().catch(e => {
-            console.log('비디오 자동재생 실패:', e);
-        });
+        if (mobileVideo) {
+            mobileVideo.play().catch(e => {
+                console.log('모바일 비디오 자동재생 실패:', e);
+            });
+        }
     }
-}
+});
 
 // 윈도우 리사이즈 시 비디오 제어
 window.addEventListener('resize', () => {
-    const heroVideo = document.querySelector('.hero-video');
-    if (heroVideo) {
-        if (window.innerWidth <= 768) {
-            heroVideo.pause();
-            heroVideo.style.display = 'none';
-        } else {
-            heroVideo.style.display = 'block';
-            heroVideo.play().catch(e => {
-                console.log('비디오 자동재생 실패:', e);
+    const desktopVideo = document.querySelector('.desktop-video');
+    const mobileVideo = document.querySelector('.mobile-video');
+    
+    if (window.innerWidth > 768) {
+        if (desktopVideo) {
+            desktopVideo.play().catch(e => {
+                console.log('데스크톱 비디오 자동재생 실패:', e);
             });
+        }
+        if (mobileVideo) {
+            mobileVideo.pause();
+        }
+    } else {
+        if (mobileVideo) {
+            mobileVideo.play().catch(e => {
+                console.log('모바일 비디오 자동재생 실패:', e);
+            });
+        }
+        if (desktopVideo) {
+            desktopVideo.pause();
         }
     }
 });

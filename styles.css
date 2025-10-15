@@ -148,32 +148,21 @@ body {
     filter: brightness(1.1) contrast(1.1) saturate(1.1);
 }
 
-/* 히어로 섹션 반응형 비디오 제어 */
-.desktop-hero-video {
+.desktop-video {
     display: block;
 }
 
-.mobile-hero-background {
+.mobile-video {
     display: none;
 }
 
 @media (max-width: 768px) {
-    .desktop-hero-video {
+    .desktop-video {
         display: none;
     }
     
-    .mobile-hero-background {
+    .mobile-video {
         display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('images/hero-mobile-bg.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        filter: brightness(1.1) contrast(1.1) saturate(1.1);
     }
     
     .hero-content {
