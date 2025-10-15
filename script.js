@@ -164,8 +164,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } else {
         if (mobileVideo) {
+            // 모바일 비디오는 무한 재생, 사용자 제어 불가
             mobileVideo.play().catch(e => {
                 console.log('모바일 비디오 자동재생 실패:', e);
+            });
+            
+            // 모바일 비디오 사용자 상호작용 완전 차단
+            mobileVideo.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+            
+            mobileVideo.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+            
+            mobileVideo.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
             });
         }
     }
