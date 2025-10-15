@@ -3,7 +3,3 @@ compatibility_date = "2024-01-01"
 
 # Cloudflare Pages 설정
 pages_build_output_dir = "."
-
-# 정적 사이트이므로 빌드 명령어 없음
-[build]
-command = ""
