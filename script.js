@@ -154,15 +154,33 @@ document.addEventListener('DOMContentLoaded', () => {
 // 히어로 비디오 자동 재생 (모바일 대응)
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
-    // 모바일에서는 비디오 대신 배경 이미지 사용
+    // 모바일에서는 비디오 자동재생 방지
     if (window.innerWidth <= 768) {
+        heroVideo.pause();
         heroVideo.style.display = 'none';
-        const heroBackground = document.querySelector('.hero-background');
-        heroBackground.style.backgroundImage = 'url("https://via.placeholder.com/1920x1080/2c3e50/ffffff?text=하라+헌옷수거")';
-        heroBackground.style.backgroundSize = 'cover';
-        heroBackground.style.backgroundPosition = 'center';
+    } else {
+        // 데스크톱에서는 비디오 자동재생
+        heroVideo.play().catch(e => {
+            console.log('비디오 자동재생 실패:', e);
+        });
     }
 }
+
+// 윈도우 리사이즈 시 비디오 제어
+window.addEventListener('resize', () => {
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+        if (window.innerWidth <= 768) {
+            heroVideo.pause();
+            heroVideo.style.display = 'none';
+        } else {
+            heroVideo.style.display = 'block';
+            heroVideo.play().catch(e => {
+                console.log('비디오 자동재생 실패:', e);
+            });
+        }
+    }
+});
 
 // 스크롤 진행률 표시
 function createScrollProgress() {
