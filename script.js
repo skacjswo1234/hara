@@ -151,26 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 히어로 비디오 제어 (데스크톱만) 및 모바일 이미지 슬라이드쇼
+// 이미지 슬라이드쇼 시작
 document.addEventListener('DOMContentLoaded', () => {
-    const desktopVideo = document.querySelector('.desktop-video');
     const slideImages = document.querySelectorAll('.slide-image');
     
-    if (window.innerWidth > 768 && desktopVideo) {
-        // 데스크톱: 자동재생
-        desktopVideo.play().catch(e => {
-            console.log('데스크톱 비디오 자동재생 실패:', e);
-        });
-    } else if (window.innerWidth <= 768 && slideImages.length > 0) {
-        // 모바일: 이미지 슬라이드쇼 시작
-        startMobileSlideshow();
+    if (slideImages.length > 0) {
+        // 모든 화면에서 이미지 슬라이드쇼 시작
+        startImageSlideshow();
     }
 });
 
-// 모바일 이미지 슬라이드쇼 함수
-function startMobileSlideshow() {
+// 이미지 슬라이드쇼 함수
+function startImageSlideshow() {
     const slideImages = document.querySelectorAll('.slide-image');
-    console.log('모바일 슬라이드쇼 시작, 이미지 개수:', slideImages.length);
+    console.log('이미지 슬라이드쇼 시작, 이미지 개수:', slideImages.length);
     
     if (slideImages.length === 0) {
         console.log('슬라이드 이미지를 찾을 수 없습니다.');
@@ -195,23 +189,10 @@ function startMobileSlideshow() {
     setInterval(showNextSlide, 2000);
 }
 
-// 윈도우 리사이즈 시 비디오 제어
+// 윈도우 리사이즈 시 슬라이드쇼 제어 (필요시)
 window.addEventListener('resize', () => {
-    const desktopVideo = document.querySelector('.desktop-video');
-    const slideImages = document.querySelectorAll('.slide-image');
-    
-    if (window.innerWidth > 768 && desktopVideo) {
-        desktopVideo.play().catch(e => {
-            console.log('데스크톱 비디오 자동재생 실패:', e);
-        });
-    } else if (desktopVideo) {
-        desktopVideo.pause();
-    }
-    
-    // 모바일로 전환 시 슬라이드쇼 시작
-    if (window.innerWidth <= 768 && slideImages.length > 0) {
-        startMobileSlideshow();
-    }
+    // 화면 크기 변경 시에도 슬라이드쇼는 계속 동작
+    console.log('화면 크기 변경됨:', window.innerWidth);
 });
 
 // 스크롤 진행률 표시

@@ -148,12 +148,7 @@ body {
     filter: brightness(1.1) contrast(1.1) saturate(1.1);
 }
 
-.desktop-video {
-    display: block;
-}
-
-.mobile-image-slideshow {
-    display: none;
+.image-slideshow {
     position: absolute;
     top: 0;
     left: 0;
@@ -179,14 +174,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .desktop-video {
-        display: none;
-    }
-    
-    .mobile-image-slideshow {
-        display: block;
-    }
-    
     .hero-content {
         padding-bottom: 8vh;
     }
