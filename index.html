@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하라 - 헌옷 및 잡화 수거 전문업체</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- 로고 -->
+                <div class="logo">
+                    <img src="images/logo.png" alt="하라 로고" class="logo-img">
+                    <h1>하라</h1>
+                </div>
+                
+                <!-- 네비게이션 -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link">홈</a></li>
+                        <li><a href="#video" class="nav-link">영상</a></li>
+                        <li><a href="#about" class="nav-link">업체소개</a></li>
+                        <li><a href="#services" class="nav-link">수거서비스</a></li>
+                        <li><a href="#prices" class="nav-link">수거가격</a></li>
+                        <li><a href="#gallery" class="nav-link">상세갤러리</a></li>
+                        <li><a href="#reviews" class="nav-link">하라활동</a></li>
+                        <li><a href="#contact" class="nav-link">문의하기</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- 모바일 메뉴 버튼 -->
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <video autoplay muted loop class="hero-video desktop-hero-video">
+                <source src="images/v2.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop class="hero-video mobile-hero-video">
+                <source src="images/v2-m.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">무료 상담 신청</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 영상 섹션 -->
+    <section id="video" class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>하라의 수거 과정</h2>
+                <p>실제 수거 현장을 영상으로 확인해보세요</p>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://tv.kakao.com/embed/player/cliplink/455179410?type=VOD&service=kakao_talkplus&autoplay=0&controls=1&coverprofile=1&showinfo=0&mute=0&showmute=1&section=channel&profile=WEB&wmode=transparent&extensions=0&rel=0&objectfit=cover"
+                        frameborder="0"
+                        allowfullscreen
+                        allow="autoplay; encrypted-media"
+                        title="하라 수거 과정 영상">
+                    </iframe>
+                </div>
+                
+                <div class="video-info">
+                    <h3>전문적인 수거 서비스</h3>
+                    <p>하라의 체계적이고 전문적인 수거 과정을 영상으로 만나보세요. 
+                    고객의 편의를 최우선으로 생각하는 서비스 마인드와 
+                    환경을 생각하는 수거 과정을 확인할 수 있습니다.</p>
+                    
+                    <div class="video-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>전문 수거진</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>체계적 관리</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>환경 친화적</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 업체 소개 섹션 -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>하라 소개</h2>
+                <p>환경보호와 자원재활용을 위한 전문 수거 서비스</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>믿을 수 있는 수거 파트너</h3>
+                    <p>하라는 헌옷, 헌책, 폐기물 수거를 전문으로 하는 업체입니다. 
+                    환경보호와 자원재활용에 기여하며, 고객의 편의를 최우선으로 생각합니다.</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-recycle"></i>
+                            <h4>환경 친화적</h4>
+                            <p>자원재활용으로 환경보호에 기여</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-truck"></i>
+                            <h4>방문 수거</h4>
+                            <p>편리한 방문 수거 서비스</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-won-sign"></i>
+                            <h4>합리적 가격</h4>
+                            <p>시장 최적가로 매입</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 수거 서비스 섹션 -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>수거 서비스</h2>
+                <p>다양한 품목의 전문 수거 서비스를 제공합니다</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- 헌옷 수거 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>헌옷 수거</h3>
+                    <div class="service-details">
+                        <p><strong>수거 가능:</strong></p>
+                        <ul>
+                            <li>일반 의류 (상의, 하의, 외투)</li>
+                            <li>운동복, 가방, 모자 등</li>
+                            <li>25kg 이상부터 방문 수거</li>
+                        </ul>
+                        <p><strong>수거 불가:</strong></p>
+                        <ul class="unavailable">
+                            <li>악취, 변색, 이염, 곰팡이, 때</li>
+                            <li>젖은 옷</li>
+                            <li>동물 관련 의류</li>
+                            <li>단체복, 한복, 작업복</li>
+                            <li>털신, 고무신, 장화, 롱부츠, 슬리퍼</li>
+                            <li>케리어, 보냉백, 바퀴 있는 신발, 가방</li>
+                            <li>솜이불, 방석, 베개, 쿠션</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 헌책 수거 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>헌책 수거</h3>
+                    <div class="service-details">
+                        <p><strong>수거 가능:</strong></p>
+                        <ul>
+                            <li>단행본, 잡지, 소설</li>
+                            <li>교과서, 전집 등</li>
+                            <li>200kg 이상부터 매입</li>
+                        </ul>
+                        <p><strong>수거 방법:</strong></p>
+                        <ul>
+                            <li>노끈으로 십자 묶음 필수</li>
+                            <li>엘리베이터 없는 경우 1층으로 내려주세요</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 기타 수거 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>기타 수거</h3>
+                    <div class="service-details">
+                        <p><strong>주방용품:</strong></p>
+                        <ul>
+                            <li>폐후라이팬, 냄비 등</li>
+                        </ul>
+                        <p><strong>전자제품:</strong></p>
+                        <ul>
+                            <li>폐컴퓨터, 노트북</li>
+                            <li>폐핸드폰</li>
+                        </ul>
+                        <p><strong>기타:</strong></p>
+                        <ul>
+                            <li>카페트(천종류), 커튼</li>
+                            <li>무상 수거 가능</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 수거 가격 섹션 -->
+    <section id="prices" class="prices">
+        <div class="container">
+            <div class="section-header">
+                <h2>수거 가격</h2>
+                <p>시장 최적가로 매입합니다 (가격은 수시로 변동될 수 있습니다)</p>
+            </div>
+            
+            <div class="prices-grid">
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>헌옷</h3>
+                    <div class="price-amount">1kg당 <span class="price">400원</span></div>
+                    <p>25kg 이상부터 방문 수거</p>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>헌책</h3>
+                    <div class="price-amount">1kg당 <span class="price">30원</span></div>
+                    <p>200kg 이상부터 매입</p>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>주방용품</h3>
+                    <div class="price-amount">1kg당 <span class="price">300원</span></div>
+                    <p>폐후라이팬, 냄비 등</p>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>폐컴퓨터/노트북</h3>
+                    <div class="price-amount">개당 <span class="price">2,000원</span></div>
+                    <p>개별 매입</p>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>폐핸드폰</h3>
+                    <div class="price-amount">개당 <span class="price">500원</span></div>
+                    <p>개별 매입</p>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>수거함 설치</h3>
+                    <div class="price-amount"><span class="price">무상</span></div>
+                    <p>서울 헌옷수거함 무상설치 및 관리</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 상세 갤러리 섹션 -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>상세 갤러리</h2>
+                <p>하라의 수거 과정과 서비스를 자세히 확인해보세요</p>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 갤러리 이미지들이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+        
+        <!-- 라이트박스 모달 -->
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <button class="lightbox-close" id="lightboxClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="lightbox-prev" id="lightboxPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-next" id="lightboxNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <img src="" alt="" id="lightboxImage">
+                <div class="lightbox-counter">
+                    <span id="lightboxCounter">1 / 11</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하라 활동 섹션 -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>하라 활동</h2>
+                <p>환경을 위한 하라의 실천과 고객과의 소중한 순간들</p>
+            </div>
+            
+            <div class="review-slider">
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- 하라 활동 이미지들이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                </div>
+                
+                <!-- 슬라이더 컨트롤 -->
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- 인디케이터 -->
+                <div class="slider-indicators" id="sliderIndicators">
+                    <!-- 슬라이드 인디케이터들이 여기에 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 문의하기 섹션 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>문의하기</h2>
+                <p>수거 서비스에 대한 문의사항이 있으시면 언제든 연락주세요</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>연락처 정보</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>전화 문의</h4>
+                            <p>010-1234-5678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>이메일</h4>
+                            <p>hara@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>서비스 지역</h4>
+                            <p>서울 전 지역</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>상담 신청</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="이름" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="연락처" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">수거 품목 선택 (복수 선택 가능)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="clothes">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">👕 헌옷</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="books">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">📚 헌책</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="kitchen">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">🍳 주방용품</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="electronics">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">💻 전자제품</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="other">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">📦 기타</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="문의사항을 입력해주세요" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">상담 신청하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>하라</h3>
+                    <p>헌옷 및 잡화 수거 전문업체</p>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2024 하라. All rights reserved.</p>
+                    <p>환경을 생각하는 수거 서비스</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

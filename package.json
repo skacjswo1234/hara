@@ -1,0 +1,28 @@
+{
+  "name": "hara-recycling-landing",
+  "version": "1.0.0",
+  "description": "하라 헌옷 및 잡화 수거 업체 랜딩페이지",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx wrangler pages dev .",
+    "deploy": "npx wrangler pages deploy .",
+    "preview": "npx wrangler pages dev . --local"
+  },
+  "keywords": [
+    "recycling",
+    "clothes",
+    "landing-page",
+    "korea",
+    "environment"
+  ],
+  "author": "하라",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hara-recycling/landing-page.git"
+  },
+  "homepage": "https://hara-recycling.pages.dev"
+}
