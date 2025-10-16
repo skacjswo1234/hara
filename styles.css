@@ -79,9 +79,9 @@ body {
 }
 
 .logo h1 {
-    font-family: 'Friz Quadrata', serif;
+    font-family: 'Cooper Black', serif;
     font-size: 2.2rem;
-    font-weight: 400;
+    font-weight: 900;
     color: var(--primary-color);
     text-decoration: none;
     margin: 0;
