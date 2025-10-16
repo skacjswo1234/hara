@@ -1619,7 +1619,9 @@ html {
     }
     
     .logo h1 {
+        font-family: 'TT Tricks', serif;
         font-size: 1.8rem;
+        font-weight: 900;
         letter-spacing: 0.5px;
     }
     
@@ -1814,7 +1816,9 @@ html {
     }
     
     .logo h1 {
+        font-family: 'TT Tricks', serif;
         font-size: 1.6rem;
+        font-weight: 900;
         letter-spacing: 0.3px;
     }
     
