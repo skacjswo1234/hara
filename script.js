@@ -105,16 +105,23 @@ if (contactForm) {
         
         // 폼 데이터 수집
         const formData = new FormData(contactForm);
+        const postcode = document.getElementById('postcode').value;
+        const address = document.getElementById('address').value;
+        const detailAddress = document.getElementById('detailAddress').value;
+        
+        // DB에 저장할 전체 주소 (우편번호 + 주소 + 상세주소)
+        const fullAddress = postcode ? `(${postcode}) ${address} ${detailAddress}` : `${address} ${detailAddress}`;
+        
         const data = {
-            name: contactForm.querySelector('input[type="text"]').value,
+            address: fullAddress, // DB에는 전체 주소를 하나의 텍스트로 저장
             phone: contactForm.querySelector('input[type="tel"]').value,
-            service: contactForm.querySelector('select').value,
+            items: Array.from(contactForm.querySelectorAll('input[name="items"]:checked')).map(item => item.value),
             message: contactForm.querySelector('textarea').value
         };
         
         // 간단한 유효성 검사
-        if (!data.name || !data.phone || !data.service) {
-            alert('필수 항목을 모두 입력해주세요.');
+        if (!address || !detailAddress || !data.phone) {
+            alert('주소와 연락처를 모두 입력해주세요.');
             return;
         }
         
@@ -126,6 +133,7 @@ if (contactForm) {
         }
         
         // 성공 메시지 (실제로는 서버로 전송)
+        console.log('상담 신청 데이터:', data);
         alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.');
         contactForm.reset();
     });
@@ -193,6 +201,29 @@ function startImageSlideshow() {
 window.addEventListener('resize', () => {
     // 화면 크기 변경 시에도 슬라이드쇼는 계속 동작
     console.log('화면 크기 변경됨:', window.innerWidth);
+});
+
+// 주소 검색 기능
+document.addEventListener('DOMContentLoaded', () => {
+    const addressSearchBtn = document.getElementById('addressSearchBtn');
+    const postcodeInput = document.getElementById('postcode');
+    const addressInput = document.getElementById('address');
+    const detailAddressInput = document.getElementById('detailAddress');
+    
+    if (addressSearchBtn) {
+        addressSearchBtn.addEventListener('click', () => {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    postcodeInput.value = data.zonecode;
+                    addressInput.value = data.address;
+                    
+                    // 상세주소 입력 필드에 포커스
+                    detailAddressInput.focus();
+                }
+            }).open();
+        });
+    }
 });
 
 // 플로팅 버튼 기능
@@ -455,185 +486,8 @@ class ReviewSlider {
 // 리뷰 슬라이더 초기화
 document.addEventListener('DOMContentLoaded', () => {
     new ReviewSlider();
-    new GalleryLightbox();
 });
 
-// 갤러리 라이트박스 기능
-class GalleryLightbox {
-    constructor() {
-        this.lightbox = document.getElementById('lightbox');
-        this.lightboxImage = document.getElementById('lightboxImage');
-        this.lightboxCounter = document.getElementById('lightboxCounter');
-        this.lightboxClose = document.getElementById('lightboxClose');
-        this.lightboxPrev = document.getElementById('lightboxPrev');
-        this.lightboxNext = document.getElementById('lightboxNext');
-        this.galleryGrid = document.getElementById('galleryGrid');
-        
-        this.currentImageIndex = 0;
-        this.images = [];
-        
-        this.init();
-    }
-    
-    init() {
-        this.createGallery();
-        this.bindEvents();
-    }
-    
-    createGallery() {
-        const detailImages = [
-            'images/detail/webp/img2.webp',
-            'images/detail/webp/img3.webp',
-            'images/detail/webp/img4.webp',
-            'images/detail/webp/img5.webp',
-            'images/detail/webp/img6.webp',
-            'images/detail/webp/img7.webp',
-            'images/detail/webp/img8.webp',
-            'images/detail/webp/img9.webp',
-            'images/detail/webp/img10.webp',
-            'images/detail/webp/img11.webp',
-            'images/detail/webp/img12.webp'
-        ];
-        
-        this.images = detailImages;
-        this.galleryGrid.innerHTML = '';
-        
-        // Intersection Observer로 뷰포트 진입 시 이미지 로드
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const galleryItem = entry.target;
-                    const img = galleryItem.querySelector('img');
-                    const loadingDiv = galleryItem.querySelector('.image-loading');
-                    
-                    // 이미지 로드 시작
-                    img.src = img.dataset.src;
-                    img.style.display = 'block';
-                    
-                    // 이미지 로드 완료 시 스피너 숨기고 이미지 표시
-                    img.addEventListener('load', () => {
-                        loadingDiv.style.display = 'none';
-                        img.style.opacity = '0';
-                        setTimeout(() => {
-                            img.style.opacity = '1';
-                        }, 100);
-                    });
-                    
-                    // 이미지 로드 실패 시 처리
-                    img.addEventListener('error', () => {
-                        loadingDiv.innerHTML = '<div class="load-error">이미지 로드 실패</div>';
-                    });
-                    
-                    // 관찰 중단
-                    imageObserver.unobserve(galleryItem);
-                }
-            });
-        }, {
-            rootMargin: '50px' // 뷰포트 50px 전에 미리 로드
-        });
-        
-        detailImages.forEach((imageSrc, index) => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            
-            // 로딩 스피너 추가
-            galleryItem.innerHTML = `
-                <div class="image-loading">
-                    <div class="loading-spinner"></div>
-                </div>
-                <img data-src="${imageSrc}" alt="하라 상세 이미지 ${index + 1}" style="display: none;">
-            `;
-            
-            galleryItem.addEventListener('click', () => this.openLightbox(index));
-            this.galleryGrid.appendChild(galleryItem);
-            
-            // Intersection Observer로 관찰 시작
-            imageObserver.observe(galleryItem);
-        });
-    }
-    
-    bindEvents() {
-        this.lightboxClose.addEventListener('click', () => this.closeLightbox());
-        this.lightboxPrev.addEventListener('click', () => this.prevImage());
-        this.lightboxNext.addEventListener('click', () => this.nextImage());
-        
-        // ESC 키로 닫기
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.lightbox.classList.contains('active')) {
-                this.closeLightbox();
-            }
-            if (e.key === 'ArrowLeft' && this.lightbox.classList.contains('active')) {
-                this.prevImage();
-            }
-            if (e.key === 'ArrowRight' && this.lightbox.classList.contains('active')) {
-                this.nextImage();
-            }
-        });
-        
-        // 배경 클릭으로 닫기
-        this.lightbox.addEventListener('click', (e) => {
-            if (e.target === this.lightbox) {
-                this.closeLightbox();
-            }
-        });
-        
-        // 터치 제스처 지원
-        let startX = 0;
-        let endX = 0;
-        
-        this.lightbox.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-        
-        this.lightbox.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            this.handleSwipe(startX, endX);
-        });
-    }
-    
-    handleSwipe(startX, endX) {
-        const threshold = 50;
-        const diff = startX - endX;
-        
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0) {
-                this.nextImage();
-            } else {
-                this.prevImage();
-            }
-        }
-    }
-    
-    openLightbox(index) {
-        this.currentImageIndex = index;
-        this.updateLightboxImage();
-        this.lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // 스크롤 방지
-    }
-    
-    closeLightbox() {
-        this.lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // 스크롤 복원
-    }
-    
-    prevImage() {
-        this.currentImageIndex = this.currentImageIndex === 0 
-            ? this.images.length - 1 
-            : this.currentImageIndex - 1;
-        this.updateLightboxImage();
-    }
-    
-    nextImage() {
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-        this.updateLightboxImage();
-    }
-    
-    updateLightboxImage() {
-        this.lightboxImage.src = this.images[this.currentImageIndex];
-        this.lightboxImage.alt = `하라 상세 이미지 ${this.currentImageIndex + 1}`;
-        this.lightboxCounter.textContent = `${this.currentImageIndex + 1} / ${this.images.length}`;
-    }
-}
 
 // 부드러운 스크롤을 위한 CSS 추가
 document.addEventListener('DOMContentLoaded', () => {

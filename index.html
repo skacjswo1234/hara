@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
     <!-- 헤더 -->
@@ -27,7 +28,6 @@
                         <li><a href="#about" class="nav-link">업체소개</a></li>
                         <li><a href="#services" class="nav-link">수거서비스</a></li>
                         <li><a href="#prices" class="nav-link">수거가격</a></li>
-                        <li><a href="#gallery" class="nav-link">상세갤러리</a></li>
                         <li><a href="#reviews" class="nav-link">하라활동</a></li>
                         <li><a href="#contact" class="nav-link">문의하기</a></li>
                     </ul>
@@ -92,27 +92,117 @@
         <div class="container">
             <div class="section-header">
                 <h2>하라 소개</h2>
-                <p>의류 재활용한 서비스</p>
+                <p>다양한 수거 서비스를 확인해보세요</p>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    
-                    <div class="features">
-                        <div class="feature">
-                            <i class="fas fa-recycle"></i>
-                            <h4>환경 친화적</h4>
-                            <p>자원재활용으로 환경보호에 기여</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-truck"></i>
-                            <h4>방문 수거</h4>
-                            <p>편리한 방문 수거 서비스</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-won-sign"></i>
-                            <h4>합리적 가격</h4>
-                            <p>시장 최적가로 매입</p>
-                        </div>
+            
+            <div class="about-cards">
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img2.webp" alt="당일수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>당일수거</h3>
+                        <p>1kg 400원<br>25kg부터 방문</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img3.webp" alt="주방용품 수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>주방용품 수거</h3>
+                        <p>스테인리스, 후라이팬, 냄비, 주방도구 수거</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img4.webp" alt="이불/커튼/카펫 수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>이불/커튼/카펫 수거</h3>
+                        <p>얇은이불/커튼/카펫 무상수거<br>(송이불은 수거 불가합니다.)</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img5.webp" alt="헌책 수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>헌책 수거</h3>
+                        <p>전집, 단행본, 잡지, 교과서, 전문서 등<br>노끈으로 십자 묶음 필수<br>(엘리베이터 없으면 1층으로 내려주세요.)</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img6.webp" alt="재고정리" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>재고정리</h3>
+                        <p>새상품, 땡처리 수출용<br>악성재고 환영<br>매장/쇼핑몰/공장재고</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img7.webp" alt="방문수거 안내" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>방문수거 안내</h3>
+                        <p>문앞 계단실 내놔주세요.<br>(단 건물 밖에 두시면 수거 불가 합니다.)<br>휴일방문수거 일요일 방문수거 사전예약제</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img8.webp" alt="전자제품 수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>전자제품 수거</h3>
+                        <p>핸드폰, 노트북, 컴퓨터<br>(핸드폰 500원, 노트북 2000원)</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img9.webp" alt="수거 불가 품목" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>수거 불가 품목</h3>
+                        <p>신발: 고무신, 털신, 롱부츠, 슬리퍼, 바퀴<br>가방: 골프백, 보냉백, 포대기, 캐리어, 바퀴<br>헌옷: 악취, 이염, 변색, 곰팡이, 찢어짐</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img10.webp" alt="헌옷수거함 설치" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>헌옷수거함 설치</h3>
+                        <p>헌옷수거함 무료설치 및 관리<br>(서울지역)</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img11.webp" alt="비대면 수거" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>비대면 수거</h3>
+                        <p>문앞에 내놔주시면 수거후 매입해드립니다.<br>건물밖에 두시면 방문 불가합니다.</p>
+                    </div>
+                </div>
+                
+                <div class="about-card">
+                    <div class="card-image">
+                        <img src="images/detail/webp/img12.webp" alt="헛걸음 보상제" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>헛걸음 보상제</h3>
+                        <p>출장비 2만원<br>(방문시 수거할 물건이 없는경우, 다량의 폐기물로 인해 수거가 불가능한경우, 기준무게 미달 무상수거를 거부하는경우)</p>
                     </div>
                 </div>
             </div>
@@ -124,78 +214,95 @@
         <div class="container">
             <div class="section-header">
                 <h2>수거 서비스</h2>
-                <p>다양한 품목의 전문 수거 서비스를 제공합니다</p>
+                <p>수거 가능 및 불가능한 품목을 확인해보세요</p>
             </div>
             
-            <div class="services-grid">
-                <!-- 헌옷 수거 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <h3>헌옷 수거</h3>
-                    <div class="service-details">
-                        <p><strong>수거 가능:</strong></p>
-                        <ul>
-                            <li>일반 의류 (상의, 하의, 외투)</li>
-                            <li>운동복, 가방, 모자 등</li>
-                            <li>25kg 이상부터 방문 수거</li>
-                        </ul>
-                        <p><strong>수거 불가:</strong></p>
-                        <ul class="unavailable">
-                            <li>악취, 변색, 이염, 곰팡이, 때</li>
-                            <li>젖은 옷</li>
-                            <li>동물 관련 의류</li>
-                            <li>단체복, 한복, 작업복</li>
-                            <li>털신, 고무신, 장화, 롱부츠, 슬리퍼</li>
-                            <li>케리어, 보냉백, 바퀴 있는 신발, 가방</li>
-                            <li>솜이불, 방석, 베개, 쿠션</li>
-                        </ul>
+            <div class="services-container">
+                <!-- 수거 가능 목록 -->
+                <div class="services-section">
+                    <h3 class="section-title available">✅ 수거 가능 목록</h3>
+                    
+                    <div class="service-list">
+                        <div class="service-item">
+                            <i class="fas fa-tshirt"></i>
+                            <span>헌옷 (1kg당 400원, 25kg 이상 방문)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>핸드폰 (500원 매입)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-laptop"></i>
+                            <span>노트북 (2,000원 매입)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-desktop"></i>
+                            <span>컴퓨터</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-book"></i>
+                            <span>전집, 단행본, 잡지, 교과서, 전문서</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>스테인리스, 후라이팬, 냄비, 주방도구</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-bed"></i>
+                            <span>얇은 이불, 커튼, 카펫 (무상수거)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-warehouse"></i>
+                            <span>새상품, 땡처리 상품, 수출용 악성재고</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-store"></i>
+                            <span>매장 / 쇼핑몰 / 공장 재고 정리</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-home"></i>
+                            <span>비대면 수거 (문 앞에 두면 매입 후 수거)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-recycle"></i>
+                            <span>헌옷수거함 무료 설치 및 관리 (서울 지역)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>휴일·일요일 방문수거 (사전예약제)</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>헛걸음 보상제 (출장비 2만원)</span>
+                        </div>
                     </div>
                 </div>
-
-                <!-- 헌책 수거 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>헌책 수거</h3>
-                    <div class="service-details">
-                        <p><strong>수거 가능:</strong></p>
-                        <ul>
-                            <li>단행본, 잡지, 소설</li>
-                            <li>교과서, 전집 등</li>
-                            <li>200kg 이상부터 매입</li>
-                        </ul>
-                        <p><strong>수거 방법:</strong></p>
-                        <ul>
-                            <li>노끈으로 십자 묶음 필수</li>
-                            <li>엘리베이터 없는 경우 1층으로 내려주세요</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 기타 수거 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <h3>기타 수거</h3>
-                    <div class="service-details">
-                        <p><strong>주방용품:</strong></p>
-                        <ul>
-                            <li>폐후라이팬, 냄비 등</li>
-                        </ul>
-                        <p><strong>전자제품:</strong></p>
-                        <ul>
-                            <li>폐컴퓨터, 노트북</li>
-                            <li>폐핸드폰</li>
-                        </ul>
-                        <p><strong>기타:</strong></p>
-                        <ul>
-                            <li>카페트(천종류), 커튼</li>
-                            <li>무상 수거 가능</li>
-                        </ul>
+                
+                <!-- 수거 불가능 목록 -->
+                <div class="services-section">
+                    <h3 class="section-title unavailable">❌ 수거 불가능 목록</h3>
+                    
+                    <div class="service-list">
+                        <div class="service-item unavailable">
+                            <i class="fas fa-shoe-prints"></i>
+                            <span>고무신, 털신, 롱부츠, 슬리퍼, 바퀴 달린 신발</span>
+                        </div>
+                        <div class="service-item unavailable">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>골프백, 보냉백, 포대기, 캐리어, 바퀴 달린 가방</span>
+                        </div>
+                        <div class="service-item unavailable">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>악취, 이염, 변색, 곰팡이, 찢어진 옷</span>
+                        </div>
+                        <div class="service-item unavailable">
+                            <i class="fas fa-ban"></i>
+                            <span>일반 생활폐기물 및 건물 외부에 방치된 물품</span>
+                        </div>
+                        <div class="service-item unavailable">
+                            <i class="fas fa-bed"></i>
+                            <span>솜이불(송이불)</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,99 +314,41 @@
         <div class="container">
             <div class="section-header">
                 <h2>수거 가격</h2>
-                <p>시장 최적가로 매입합니다 (가격은 수시로 변동될 수 있습니다)</p>
+                <p>합리적인 가격으로 매입합니다</p>
             </div>
             
-            <div class="prices-grid">
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-tshirt"></i>
+            <div class="prices-simple">
+                <div class="price-item">
+                    <span class="price-emoji">💡</span>
+                    <div class="price-content">
+                        <h3>헌옷 1kg당 400원</h3>
                     </div>
-                    <h3>헌옷</h3>
-                    <div class="price-amount">1kg당 <span class="price">400원</span></div>
-                    <p>25kg 이상부터 방문 수거</p>
                 </div>
-
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-book"></i>
+                
+                <div class="price-item">
+                    <span class="price-emoji">🚚</span>
+                    <div class="price-content">
+                        <h3>25kg 이상 방문 수거 가능</h3>
                     </div>
-                    <h3>헌책</h3>
-                    <div class="price-amount">1kg당 <span class="price">30원</span></div>
-                    <p>200kg 이상부터 매입</p>
                 </div>
-
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-utensils"></i>
+                
+                <div class="price-item">
+                    <span class="price-emoji">💻</span>
+                    <div class="price-content">
+                        <h3>노트북 2,000원 / 휴대폰 500원</h3>
                     </div>
-                    <h3>주방용품</h3>
-                    <div class="price-amount">1kg당 <span class="price">300원</span></div>
-                    <p>폐후라이팬, 냄비 등</p>
                 </div>
-
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-laptop"></i>
+                
+                <div class="price-item">
+                    <span class="price-emoji">❌</span>
+                    <div class="price-content">
+                        <h3>헛걸음 시 출장비 2만원</h3>
                     </div>
-                    <h3>폐컴퓨터/노트북</h3>
-                    <div class="price-amount">개당 <span class="price">2,000원</span></div>
-                    <p>개별 매입</p>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>폐핸드폰</h3>
-                    <div class="price-amount">개당 <span class="price">500원</span></div>
-                    <p>개별 매입</p>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>수거함 설치</h3>
-                    <div class="price-amount"><span class="price">무상</span></div>
-                    <p>서울 헌옷수거함 무상설치 및 관리</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 상세 갤러리 섹션 -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2>상세 갤러리</h2>
-                <p>하라의 수거 과정과 서비스를 자세히 확인해보세요</p>
-            </div>
-            
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- 갤러리 이미지들이 여기에 동적으로 추가됩니다 -->
-            </div>
-        </div>
-        
-        <!-- 라이트박스 모달 -->
-        <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <button class="lightbox-close" id="lightboxClose">
-                    <i class="fas fa-times"></i>
-                </button>
-                <button class="lightbox-prev" id="lightboxPrev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="lightbox-next" id="lightboxNext">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                <img src="" alt="" id="lightboxImage">
-                <div class="lightbox-counter">
-                    <span id="lightboxCounter">1 / 11</span>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- 하라 활동 섹션 -->
     <section id="reviews" class="reviews">
@@ -372,7 +421,12 @@
                     <h3>상담 신청</h3>
                     <form>
                         <div class="form-group">
-                            <input type="text" placeholder="이름" required>
+                            <div class="address-input-group">
+                                <input type="text" id="postcode" placeholder="우편번호" readonly>
+                                <button type="button" id="addressSearchBtn" class="address-search-btn">주소 검색</button>
+                            </div>
+                            <input type="text" id="address" placeholder="주소" readonly required>
+                            <input type="text" id="detailAddress" placeholder="상세주소" required>
                         </div>
                         <div class="form-group">
                             <input type="tel" placeholder="연락처" required>
@@ -381,29 +435,24 @@
                             <label class="form-label">수거 품목 선택 (복수 선택 가능)</label>
                             <div class="checkbox-group">
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="clothes">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">👕 헌옷</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="books">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">📚 헌책</span>
-                                </label>
-                                <label class="checkbox-item">
                                     <input type="checkbox" name="items" value="kitchen">
                                     <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">🍳 주방용품</span>
+                                    <span class="checkbox-text">🍳 주방 (후라이팬, 냄비)</span>
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox" name="items" value="electronics">
                                     <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">💻 전자제품</span>
+                                    <span class="checkbox-text">💻 폐휴대폰, 폐노트북, 폐컴퓨터</span>
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="other">
+                                    <input type="checkbox" name="items" value="clothes">
                                     <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">📦 기타</span>
+                                    <span class="checkbox-text">👕 헌옷, 운동화, 구두, 가방, 모자 등</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="items" value="books">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">📚 헌책, 단행본, 전집, 소설, 교과서 등</span>
                                 </label>
                             </div>
                         </div>

@@ -480,6 +480,64 @@ section {
     background: var(--bg-section);
 }
 
+/* 하라소개 카드 그리드 */
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.about-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    width: 100%;
+    height: 750px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.about-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-content h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.card-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+}
+
 .about-content {
     max-width: 800px;
     margin: 0 auto;
@@ -542,11 +600,91 @@ section {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* 서비스 섹션 */
-.services-grid {
+/* 수거 서비스 섹션 */
+.services-container {
+    margin-top: 3rem;
+}
+
+.services-section {
+    margin-bottom: 4rem;
+}
+
+.services-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.section-title.available {
+    background: linear-gradient(135deg, #e8f5e8, #d4edda);
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.section-title.unavailable {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border: 2px solid #f1b0b7;
+}
+
+.service-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary-color);
+    transition: var(--transition);
+}
+
+.service-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #e3f2fd;
+}
+
+.service-item.unavailable {
+    border-left-color: var(--accent-color);
+    background: #fdf2f2;
+}
+
+.service-item.unavailable:hover {
+    background: #fce4e4;
+}
+
+.service-item i {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    min-width: 20px;
+}
+
+.service-item.unavailable i {
+    color: var(--accent-color);
+}
+
+.service-item span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.service-item.unavailable span {
+    color: #721c24;
 }
 
 .service-card {
@@ -621,9 +759,48 @@ section {
     color: var(--accent-color);
 }
 
-/* 가격 섹션 */
+/* 수거 가격 섹션 */
 .prices {
     background: var(--bg-section);
+}
+
+.prices-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.price-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.price-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.price-emoji {
+    font-size: 3rem;
+    flex-shrink: 0;
+}
+
+.price-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    letter-spacing: 0.3px;
 }
 
 .prices-grid {
@@ -1267,6 +1444,45 @@ section {
     min-height: 120px;
 }
 
+.address-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.address-input-group input {
+    flex: 1;
+}
+
+.address-search-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 1.2rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.address-search-btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+#postcode {
+    background: #f8f9fa;
+    cursor: not-allowed;
+}
+
+#address {
+    background: #f8f9fa;
+    cursor: not-allowed;
+    margin-bottom: 0.5rem;
+}
+
 .form-label {
     display: block;
     margin-bottom: 1rem;
@@ -1432,15 +1648,25 @@ html {
         line-height: 1.6;
     }
     
-    .about-text h3 {
-        font-size: 2.2rem;
-        letter-spacing: 0.5px;
+    .about-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
-    .about-text p {
+    .card-image {
+        height: 450px;
+    }
+    
+    .card-content {
+        padding: 1.2rem;
+    }
+    
+    .card-content h3 {
         font-size: 1.2rem;
-        letter-spacing: 0.3px;
-        line-height: 1.7;
+    }
+    
+    .card-content p {
+        font-size: 0.9rem;
     }
     
     .service-card h3 {
@@ -1507,6 +1733,16 @@ html {
         letter-spacing: 0.2px;
     }
     
+    .address-input-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .address-search-btn {
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+    }
+    
     .contact-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1522,12 +1758,48 @@ html {
         grid-template-columns: 1fr;
     }
     
-    .services-grid {
+    .service-list {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .service-item {
+        padding: 1rem;
+        gap: 0.8rem;
+    }
+    
+    .service-item i {
+        font-size: 1.1rem;
+    }
+    
+    .service-item span {
+        font-size: 0.9rem;
     }
     
     .prices-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .prices-simple {
+        gap: 1.5rem;
+    }
+    
+    .price-item {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .price-emoji {
+        font-size: 2.5rem;
+    }
+    
+    .price-content h3 {
+        font-size: 1.4rem;
     }
 }
 
@@ -1554,15 +1826,57 @@ html {
         line-height: 1.5;
     }
     
-    .about-text h3 {
-        font-size: 2rem;
-        letter-spacing: 0.3px;
+    .about-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
-    .about-text p {
+    .card-image {
+        height: 400px;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+    
+    .card-content h3 {
         font-size: 1.1rem;
-        letter-spacing: 0.2px;
-        line-height: 1.6;
+    }
+    
+    .card-content p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    .service-item {
+        padding: 0.8rem;
+        gap: 0.6rem;
+    }
+    
+    .service-item i {
+        font-size: 1rem;
+    }
+    
+    .service-item span {
+        font-size: 0.85rem;
+    }
+    
+    .price-item {
+        padding: 1.2rem;
+        gap: 1rem;
+    }
+    
+    .price-emoji {
+        font-size: 2rem;
+    }
+    
+    .price-content h3 {
+        font-size: 1.2rem;
     }
     
     .service-card h3 {
@@ -1631,6 +1945,11 @@ html {
     .checkbox-text {
         font-size: 0.9rem;
         letter-spacing: 0.1px;
+    }
+    
+    .address-search-btn {
+        padding: 0.9rem 1rem;
+        font-size: 0.9rem;
     }
     
     .btn {
