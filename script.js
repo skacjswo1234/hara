@@ -482,28 +482,73 @@ class GalleryLightbox {
     
     createGallery() {
         const detailImages = [
-            'images/detail/img2.png',
-            'images/detail/img3.png',
-            'images/detail/img4.png',
-            'images/detail/img5.png',
-            'images/detail/img6.png',
-            'images/detail/img7.png',
-            'images/detail/img8.png',
-            'images/detail/img9.png',
-            'images/detail/img10.png',
-            'images/detail/img11.png',
-            'images/detail/img12.png'
+            'images/detail/webp/img2.webp',
+            'images/detail/webp/img3.webp',
+            'images/detail/webp/img4.webp',
+            'images/detail/webp/img5.webp',
+            'images/detail/webp/img6.webp',
+            'images/detail/webp/img7.webp',
+            'images/detail/webp/img8.webp',
+            'images/detail/webp/img9.webp',
+            'images/detail/webp/img10.webp',
+            'images/detail/webp/img11.webp',
+            'images/detail/webp/img12.webp'
         ];
         
         this.images = detailImages;
         this.galleryGrid.innerHTML = '';
         
+        // Intersection Observer로 뷰포트 진입 시 이미지 로드
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const galleryItem = entry.target;
+                    const img = galleryItem.querySelector('img');
+                    const loadingDiv = galleryItem.querySelector('.image-loading');
+                    
+                    // 이미지 로드 시작
+                    img.src = img.dataset.src;
+                    img.style.display = 'block';
+                    
+                    // 이미지 로드 완료 시 스피너 숨기고 이미지 표시
+                    img.addEventListener('load', () => {
+                        loadingDiv.style.display = 'none';
+                        img.style.opacity = '0';
+                        setTimeout(() => {
+                            img.style.opacity = '1';
+                        }, 100);
+                    });
+                    
+                    // 이미지 로드 실패 시 처리
+                    img.addEventListener('error', () => {
+                        loadingDiv.innerHTML = '<div class="load-error">이미지 로드 실패</div>';
+                    });
+                    
+                    // 관찰 중단
+                    imageObserver.unobserve(galleryItem);
+                }
+            });
+        }, {
+            rootMargin: '50px' // 뷰포트 50px 전에 미리 로드
+        });
+        
         detailImages.forEach((imageSrc, index) => {
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
-            galleryItem.innerHTML = `<img src="${imageSrc}" alt="하라 상세 이미지 ${index + 1}" loading="lazy">`;
+            
+            // 로딩 스피너 추가
+            galleryItem.innerHTML = `
+                <div class="image-loading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <img data-src="${imageSrc}" alt="하라 상세 이미지 ${index + 1}" style="display: none;">
+            `;
+            
             galleryItem.addEventListener('click', () => this.openLightbox(index));
             this.galleryGrid.appendChild(galleryItem);
+            
+            // Intersection Observer로 관찰 시작
+            imageObserver.observe(galleryItem);
         });
     }
     

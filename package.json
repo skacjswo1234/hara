@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npx wrangler pages dev .",
     "deploy": "npx wrangler pages deploy .",
-    "preview": "npx wrangler pages dev . --local"
+    "preview": "npx wrangler pages dev . --local",
+    "convert-webp": "node convert-to-webp.js"
   },
   "keywords": [
     "recycling",
@@ -18,7 +19,8 @@
   "author": "하라",
   "license": "MIT",
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.0.0",
+    "sharp": "^0.33.0"
   },
   "repository": {
     "type": "git",
