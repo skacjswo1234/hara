@@ -312,19 +312,19 @@ class ReviewSlider {
         this.slideWidth = 270; // 슬라이드 너비 (gap 포함)
         
         this.reviewImages = [
-            'images/review/d_1.jpg',
-            'images/review/d2.jpg',
-            'images/review/d3.jpg',
-            'images/review/d4.jpg',
-            'images/review/d5.jpg',
-            'images/review/d6.jpg',
-            'images/review/d7.jpg',
-            'images/review/d8.jpg',
-            'images/review/d9.jpg',
-            'images/review/d10.jpg',
-            'images/review/d11.jpg',
-            'images/review/d12.jpg',
-            'images/review/d13.jpg'
+            'images/review/d_1.webp',
+            'images/review/d2.webp',
+            'images/review/d3.webp',
+            'images/review/d4.webp',
+            'images/review/d5.webp',
+            'images/review/d6.webp',
+            'images/review/d7.webp',
+            'images/review/d8.webp',
+            'images/review/d9.webp',
+            'images/review/d10.webp',
+            'images/review/d11.webp',
+            'images/review/d12.webp',
+            'images/review/d13.webp'
         ];
         
         this.init();
