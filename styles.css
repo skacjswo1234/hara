@@ -304,16 +304,16 @@ section {
 }
 
 .video-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 3rem;
 }
 
 .video-wrapper {
     position: relative;
     width: 100%;
+    max-width: 800px;
     height: 0;
     padding-bottom: 56.25%; /* 16:9 비율 */
     border-radius: 15px;
@@ -396,23 +396,12 @@ section {
 /* 영상 섹션 반응형 */
 @media (max-width: 768px) {
     .video-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        margin-top: 2rem;
     }
     
-    .video-info {
-        padding: 1.5rem;
-    }
-    
-    .video-info h3 {
-        font-size: 1.5rem;
-        letter-spacing: 0.3px;
-    }
-    
-    .video-info p {
-        font-size: 1rem;
-        letter-spacing: 0.2px;
-        line-height: 1.7;
+    .video-wrapper {
+        max-width: 100%;
+        margin: 0 1rem;
     }
     
     .video-features {
@@ -439,11 +428,17 @@ section {
     }
     
     .video-container {
-        gap: 1.5rem;
+        margin-top: 1.5rem;
     }
     
     .video-wrapper {
+        max-width: 100%;
+        margin: 0 0.5rem;
         border-radius: 10px;
+    }
+    
+    .video-section .section-header p {
+        padding-left: 1rem;
     }
     
     .video-wrapper iframe {

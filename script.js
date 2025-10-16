@@ -708,6 +708,7 @@ document.addEventListener('keydown', (e) => {
 let touchStartY = 0;
 let touchEndY = 0;
 let isScrolling = false; // 스크롤 중인지 추적
+let lastTouchTime = 0; // 마지막 터치 시간 추적
 
 // 모바일에서 터치 스크롤 제어
 document.addEventListener('touchstart', (e) => {
@@ -721,6 +722,7 @@ document.addEventListener('touchend', (e) => {
 
 // 모바일에서 휠 스크롤 제어 (터치패드 포함)
 let wheelTimeout;
+let lastWheelTime = 0;
 document.addEventListener('wheel', (e) => {
     // 모바일 기기에서만 적용
     if (window.innerWidth <= 768) {
@@ -729,23 +731,33 @@ document.addEventListener('wheel', (e) => {
         // 스크롤 중이면 무시
         if (isScrolling) return;
         
+        // 너무 빠른 연속 스크롤 방지
+        const now = Date.now();
+        if (now - lastWheelTime < 300) return;
+        lastWheelTime = now;
+        
         // 휠 이벤트 디바운싱
         clearTimeout(wheelTimeout);
         wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 0) {
+            if (e.deltaY > 10) {
                 // 아래로 스크롤 - 다음 섹션으로
                 scrollToNextSection();
-            } else if (e.deltaY < 0) {
+            } else if (e.deltaY < -10) {
                 // 위로 스크롤 - 이전 섹션으로
                 scrollToPrevSection();
             }
-        }, 50);
+        }, 100);
     }
 }, { passive: false });
 
 function handleSwipe() {
-    const swipeThreshold = 100; // 임계값을 높여서 더 확실한 스와이프만 인식
+    const swipeThreshold = 80; // 스와이프 임계값 조정
     const diff = touchStartY - touchEndY;
+    
+    // 너무 빠른 연속 터치 방지
+    const now = Date.now();
+    if (now - lastTouchTime < 400) return;
+    lastTouchTime = now;
     
     if (Math.abs(diff) > swipeThreshold) {
         // 스크롤 중인지 확인 (현재 스크롤 중이면 무시)
@@ -776,10 +788,10 @@ function scrollToNextSection() {
             behavior: 'smooth'
         });
         
-        // 스크롤 완료 후 상태 리셋 (약간의 지연)
+        // 스크롤 완료 후 상태 리셋 (더 빠른 반응을 위해 시간 단축)
         setTimeout(() => {
             isScrolling = false;
-        }, 800);
+        }, 600);
     }
 }
 
@@ -798,24 +810,30 @@ function scrollToPrevSection() {
             behavior: 'smooth'
         });
         
-        // 스크롤 완료 후 상태 리셋 (약간의 지연)
+        // 스크롤 완료 후 상태 리셋 (더 빠른 반응을 위해 시간 단축)
         setTimeout(() => {
             isScrolling = false;
-        }, 800);
+        }, 600);
     }
 }
 
 function getCurrentSection() {
     const headerHeight = header.offsetHeight;
-    const scrollPosition = window.scrollY + headerHeight + 100;
+    const scrollPosition = window.scrollY + headerHeight + 50; // 더 정확한 감지를 위해 50px로 조정
+    
+    let currentSection = sections[0];
     
     for (let section of sections) {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            return section;
+        // 현재 스크롤 위치가 섹션의 중간 지점을 넘었는지 확인
+        if (scrollPosition >= sectionTop + (sectionHeight / 2)) {
+            currentSection = section;
+        } else {
+            break;
         }
     }
-    return sections[0];
+    
+    return currentSection;
 }
