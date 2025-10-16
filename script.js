@@ -204,15 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 전화 버튼 클릭
     if (phoneBtn) {
         phoneBtn.addEventListener('click', () => {
-            window.location.href = 'tel:010-1234-5678';
+            window.location.href = 'tel:010-4657-3803';
         });
     }
     
     // 카카오톡 버튼 클릭
     if (kakaoBtn) {
         kakaoBtn.addEventListener('click', () => {
-            // 카카오톡 채널 링크 (실제 채널 URL로 변경 필요)
-            window.open('https://pf.kakao.com/_your_channel_id', '_blank');
+            // 카카오톡 채팅 연결
+            window.open('https://pf.kakao.com/_rxhCDxj/chat', '_blank');
         });
     }
     
@@ -662,7 +662,9 @@ document.addEventListener('keydown', (e) => {
 // 터치 제스처 지원 (모바일)
 let touchStartY = 0;
 let touchEndY = 0;
+let isScrolling = false; // 스크롤 중인지 추적
 
+// 모바일에서 터치 스크롤 제어
 document.addEventListener('touchstart', (e) => {
     touchStartY = e.changedTouches[0].screenY;
 });
@@ -672,11 +674,38 @@ document.addEventListener('touchend', (e) => {
     handleSwipe();
 });
 
+// 모바일에서 휠 스크롤 제어 (터치패드 포함)
+let wheelTimeout;
+document.addEventListener('wheel', (e) => {
+    // 모바일 기기에서만 적용
+    if (window.innerWidth <= 768) {
+        e.preventDefault();
+        
+        // 스크롤 중이면 무시
+        if (isScrolling) return;
+        
+        // 휠 이벤트 디바운싱
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+            if (e.deltaY > 0) {
+                // 아래로 스크롤 - 다음 섹션으로
+                scrollToNextSection();
+            } else if (e.deltaY < 0) {
+                // 위로 스크롤 - 이전 섹션으로
+                scrollToPrevSection();
+            }
+        }, 50);
+    }
+}, { passive: false });
+
 function handleSwipe() {
-    const swipeThreshold = 50;
+    const swipeThreshold = 100; // 임계값을 높여서 더 확실한 스와이프만 인식
     const diff = touchStartY - touchEndY;
     
     if (Math.abs(diff) > swipeThreshold) {
+        // 스크롤 중인지 확인 (현재 스크롤 중이면 무시)
+        if (isScrolling) return;
+        
         if (diff > 0) {
             // 위로 스와이프 - 다음 섹션으로
             scrollToNextSection();
@@ -688,28 +717,46 @@ function handleSwipe() {
 }
 
 function scrollToNextSection() {
+    if (isScrolling) return; // 이미 스크롤 중이면 무시
+    
     const currentSection = getCurrentSection();
     const nextSection = currentSection.nextElementSibling;
     if (nextSection && nextSection.tagName === 'SECTION') {
+        isScrolling = true;
         const headerHeight = header.offsetHeight;
         const targetPosition = nextSection.offsetTop - headerHeight;
+        
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
+        
+        // 스크롤 완료 후 상태 리셋 (약간의 지연)
+        setTimeout(() => {
+            isScrolling = false;
+        }, 800);
     }
 }
 
 function scrollToPrevSection() {
+    if (isScrolling) return; // 이미 스크롤 중이면 무시
+    
     const currentSection = getCurrentSection();
     const prevSection = currentSection.previousElementSibling;
     if (prevSection && prevSection.tagName === 'SECTION') {
+        isScrolling = true;
         const headerHeight = header.offsetHeight;
         const targetPosition = prevSection.offsetTop - headerHeight;
+        
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
+        
+        // 스크롤 완료 후 상태 리셋 (약간의 지연)
+        setTimeout(() => {
+            isScrolling = false;
+        }, 800);
     }
 }
 
