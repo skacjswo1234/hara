@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: y proximity;
+}
+
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -30,6 +36,7 @@ body {
     letter-spacing: 0.3px;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+    overflow-x: hidden;
     /* 모바일 줌 방지 */
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -2081,5 +2088,52 @@ html {
         width: 40px;
         height: 40px;
         font-size: 1rem;
+    }
+}
+
+/* 모바일 스크롤 최적화 */
+@media (max-width: 768px) {
+    /* 스크롤 성능 개선 */
+    * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+    }
+    
+    /* 스크롤 영역 최적화 */
+    .hero-section,
+    .services-container,
+    .contact-section {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+    }
+    
+    /* 부드러운 스크롤 */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior: contain;
+    }
+    
+    /* 스크롤 스냅 효과 */
+    .hero-section {
+        scroll-snap-align: start;
+    }
+    
+    .services-container {
+        scroll-snap-align: start;
+    }
+    
+    .contact-section {
+        scroll-snap-align: start;
     }
 }

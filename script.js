@@ -6,8 +6,22 @@ const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section');
 const contactForm = document.querySelector('.contact-form form');
 
-// 스크롤 이벤트 - 헤더 스타일 변경
-window.addEventListener('scroll', () => {
+// 스크롤 성능 최적화를 위한 throttling 함수
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+// 스크롤 이벤트 - 헤더 스타일 변경 (최적화됨)
+const handleScroll = throttle(() => {
     if (window.scrollY > 100) {
         header.style.background = 'rgba(255, 255, 255, 0.98)';
         header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
@@ -15,7 +29,9 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(255, 255, 255, 0.95)';
         header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
-});
+}, 16); // 60fps를 위한 16ms 간격
+
+window.addEventListener('scroll', handleScroll, { passive: true });
 
 // 모바일 메뉴 토글
 mobileMenuBtn.addEventListener('click', () => {
@@ -690,4 +706,80 @@ function getCurrentSection() {
     }
     
     return currentSection;
+}
+
+// 모바일 스크롤 최적화
+if (window.innerWidth <= 768) {
+    // 모바일에서 스크롤 성능 개선
+    let ticking = false;
+    
+    function updateScrollPosition() {
+        // 스크롤 관련 작업들
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateScrollPosition);
+            ticking = true;
+        }
+    }
+    
+    // 모바일에서 스크롤 이벤트 최적화
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // 모바일에서 터치 이벤트 최적화
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartY - touchEndY;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            // 스와이프 감지 시 부드러운 스크롤
+            if (diff > 0) {
+                // 위로 스와이프 - 다음 섹션으로
+                scrollToNextSection();
+            } else {
+                // 아래로 스와이프 - 이전 섹션으로
+                scrollToPreviousSection();
+            }
+        }
+    }
+    
+    function scrollToNextSection() {
+        const currentSection = getCurrentSection();
+        const currentIndex = Array.from(sections).indexOf(currentSection);
+        
+        if (currentIndex < sections.length - 1) {
+            const nextSection = sections[currentIndex + 1];
+            nextSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+    
+    function scrollToPreviousSection() {
+        const currentSection = getCurrentSection();
+        const currentIndex = Array.from(sections).indexOf(currentSection);
+        
+        if (currentIndex > 0) {
+            const prevSection = sections[currentIndex - 1];
+            prevSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
 }
