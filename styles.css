@@ -26,7 +26,7 @@ html {
 }
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     line-height: 1.8;
     color: var(--text-color);
     background-color: var(--bg-color);
@@ -79,8 +79,9 @@ body {
 }
 
 .logo h1 {
+    font-family: 'Friz Quadrata', serif;
     font-size: 2.2rem;
-    font-weight: 800;
+    font-weight: 400;
     color: var(--primary-color);
     text-decoration: none;
     margin: 0;
@@ -516,18 +517,20 @@ section {
 
 .card-content {
     padding: 1.5rem;
+    text-align: center;
 }
 
 .card-content h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 2.2rem;
+    font-weight: 900;
     color: var(--primary-color);
     margin-bottom: 1rem;
     letter-spacing: 0.3px;
 }
 
 .card-content p {
-    font-size: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
     line-height: 1.6;
     color: var(--text-color);
     margin: 0;
@@ -1404,6 +1407,11 @@ section {
     box-shadow: var(--shadow);
 }
 
+.contact-form .btn {
+    display: block;
+    margin: 0 auto;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -1657,11 +1665,13 @@ html {
     }
     
     .card-content h3 {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
+        font-weight: 900;
     }
     
     .card-content p {
-        font-size: 0.9rem;
+        font-size: 1.3rem;
+        font-weight: 700;
     }
     
     .service-card h3 {
@@ -1835,11 +1845,13 @@ html {
     }
     
     .card-content h3 {
-        font-size: 1.1rem;
+        font-size: 1.5rem;
+        font-weight: 900;
     }
     
     .card-content p {
-        font-size: 0.85rem;
+        font-size: 1.2rem;
+        font-weight: 700;
         line-height: 1.5;
     }
     
@@ -2005,11 +2017,12 @@ html {
 }
 
 .floating-btn {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -2017,6 +2030,15 @@ html {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
     color: white;
+    position: relative;
+}
+
+.floating-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .phone-btn {
@@ -2059,8 +2081,8 @@ html {
     }
     
     .floating-btn {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
         font-size: 1.1rem;
     }
 }
@@ -2073,8 +2095,8 @@ html {
     }
     
     .floating-btn {
-        width: 40px;
-        height: 40px;
+        width: 55px;
+        height: 55px;
         font-size: 1rem;
     }
 }
