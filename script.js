@@ -30,7 +30,7 @@ mobileMenuBtn.addEventListener('click', () => {
     }
 });
 
-// 네비게이션 링크 클릭 시 즉시 스크롤
+// 네비게이션 링크 클릭 시 부드러운 스크롤
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -43,7 +43,7 @@ navLinks.forEach(link => {
             
             window.scrollTo({
                 top: targetPosition,
-                behavior: 'auto'
+                behavior: 'smooth'
             });
             
             // 모바일 메뉴 닫기

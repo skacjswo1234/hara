@@ -6,7 +6,7 @@
 }
 
 html {
-    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -32,11 +32,14 @@ body {
     transition: var(--transition);
     font-weight: 500;
     letter-spacing: 0.3px;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
     /* 모바일 줌 방지 */
-    touch-action: pan-y;
+    touch-action: manipulation;
     -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .container {
@@ -2083,27 +2086,3 @@ html {
     }
 }
 
-/* 모바일 스크롤 최적화 */
-@media (max-width: 768px) {
-    /* 기본 스크롤 설정 */
-    html {
-        -webkit-overflow-scrolling: touch;
-        height: 100%;
-    }
-    
-    body {
-        -webkit-overflow-scrolling: touch;
-        position: relative;
-        min-height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    /* 모든 섹션에 기본 스크롤 설정 */
-    section {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-}
