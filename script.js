@@ -15,7 +15,8 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(255, 255, 255, 0.95)';
         header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
-});
+}, { passive: true });
+
 
 // 모바일 메뉴 토글
 mobileMenuBtn.addEventListener('click', () => {
@@ -558,118 +559,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// 터치 제스처 지원 (모바일)
-let touchStartY = 0;
-let touchEndY = 0;
-let isScrolling = false; // 스크롤 중인지 추적
-let lastTouchTime = 0; // 마지막 터치 시간 추적
-
-// 모바일에서 터치 스크롤 제어
-document.addEventListener('touchstart', (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-});
-
-document.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].screenY;
-    handleSwipe();
-});
-
-// 모바일에서 휠 스크롤 제어 (터치패드 포함)
-let wheelTimeout;
-let lastWheelTime = 0;
-document.addEventListener('wheel', (e) => {
-    // 모바일 기기에서만 적용
-    if (window.innerWidth <= 768) {
-        e.preventDefault();
-        
-        // 스크롤 중이면 무시
-        if (isScrolling) return;
-        
-        // 너무 빠른 연속 스크롤 방지
-        const now = Date.now();
-        if (now - lastWheelTime < 300) return;
-        lastWheelTime = now;
-        
-        // 휠 이벤트 디바운싱
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 10) {
-                // 아래로 스크롤 - 다음 섹션으로
-                scrollToNextSection();
-            } else if (e.deltaY < -10) {
-                // 위로 스크롤 - 이전 섹션으로
-                scrollToPrevSection();
-            }
-        }, 100);
-    }
-}, { passive: false });
-
-function handleSwipe() {
-    const swipeThreshold = 80; // 스와이프 임계값 조정
-    const diff = touchStartY - touchEndY;
-    
-    // 너무 빠른 연속 터치 방지
-    const now = Date.now();
-    if (now - lastTouchTime < 400) return;
-    lastTouchTime = now;
-    
-    if (Math.abs(diff) > swipeThreshold) {
-        // 스크롤 중인지 확인 (현재 스크롤 중이면 무시)
-        if (isScrolling) return;
-        
-        if (diff > 0) {
-            // 위로 스와이프 - 다음 섹션으로
-            scrollToNextSection();
-        } else {
-            // 아래로 스와이프 - 이전 섹션으로
-            scrollToPrevSection();
-        }
-    }
-}
-
-function scrollToNextSection() {
-    if (isScrolling) return; // 이미 스크롤 중이면 무시
-    
-    const currentSection = getCurrentSection();
-    const nextSection = currentSection.nextElementSibling;
-    if (nextSection && nextSection.tagName === 'SECTION') {
-        isScrolling = true;
-        const headerHeight = header.offsetHeight;
-        const targetPosition = nextSection.offsetTop - headerHeight;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-        
-        // 스크롤 완료 후 상태 리셋 (더 빠른 반응을 위해 시간 단축)
-        setTimeout(() => {
-            isScrolling = false;
-        }, 600);
-    }
-}
-
-function scrollToPrevSection() {
-    if (isScrolling) return; // 이미 스크롤 중이면 무시
-    
-    const currentSection = getCurrentSection();
-    const prevSection = currentSection.previousElementSibling;
-    if (prevSection && prevSection.tagName === 'SECTION') {
-        isScrolling = true;
-        const headerHeight = header.offsetHeight;
-        const targetPosition = prevSection.offsetTop - headerHeight;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-        
-        // 스크롤 완료 후 상태 리셋 (더 빠른 반응을 위해 시간 단축)
-        setTimeout(() => {
-            isScrolling = false;
-        }, 600);
-    }
-}
 
 function getCurrentSection() {
     const headerHeight = header.offsetHeight;
