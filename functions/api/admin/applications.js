@@ -23,13 +23,39 @@ export async function onRequestGet(context) {
         console.log('신청서 목록 조회 요청');
 
         // D1 데이터베이스에서 신청서 목록 조회
-        const applications = await env['hara-db'].prepare(`
-            SELECT id, name, email, phone, address, contact, inquiry, items, status, created_at
-            FROM applications
-            ORDER BY created_at DESC
-        `).all();
+        let applications;
+        try {
+            applications = await env['hara-db'].prepare(`
+                SELECT id, name, email, phone, address, contact, inquiry, items, status, created_at
+                FROM applications
+                ORDER BY created_at DESC
+            `).all();
+        } catch (dbError) {
+            console.error('데이터베이스 조회 오류:', dbError);
+            return new Response(JSON.stringify({
+                success: false,
+                message: '데이터베이스 연결 오류'
+            }), {
+                status: 500,
+                headers: {
+                    ...corsHeaders,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
 
-        // 데이터 포맷팅 (모바일 친화적)
+        // 결과가 없는 경우 처리
+        if (!applications || !applications.results) {
+            return new Response(JSON.stringify([]), {
+                status: 200,
+                headers: {
+                    ...corsHeaders,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        // 데이터 포맷팅
         const formattedApplications = applications.results.map(app => ({
             id: app.id,
             name: app.name || '이름 없음',
