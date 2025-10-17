@@ -21,8 +21,26 @@ export async function onRequestPost(context) {
         const data = await request.json();
         const { password } = data;
 
-        // 비밀번호 검증 (실제 환경에서는 더 안전한 인증 방식을 사용해야 함)
-        if (password === '1234') {
+        // 데이터베이스에서 관리자 정보 확인
+        const admin = await env['hara-db'].prepare(`
+            SELECT id, username, password FROM admins WHERE username = 'admin'
+        `).first();
+
+        if (!admin) {
+            return new Response(JSON.stringify({
+                success: false,
+                message: '관리자 계정이 존재하지 않습니다.'
+            }), {
+                status: 401,
+                headers: {
+                    ...corsHeaders,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        // 비밀번호 검증
+        if (password === admin.password) {
             // 간단한 토큰 생성 (실제 환경에서는 JWT 등을 사용)
             const token = btoa('admin:' + Date.now() + ':' + Math.random());
             

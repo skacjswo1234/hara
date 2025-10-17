@@ -3,15 +3,99 @@ let authToken = localStorage.getItem('adminToken');
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
+    // 현재 페이지가 로그인 페이지인지 확인
+    const isLoginPage = window.location.pathname.includes('admin-login.html');
+    
+    if (isLoginPage) {
+        // 로그인 페이지 초기화
+        initLoginPage();
+    } else {
+        // 대시보드 페이지 초기화
+        initDashboardPage();
+    }
+});
+
+// 로그인 페이지 초기화
+function initLoginPage() {
+    // 이미 로그인된 경우 대시보드로 리다이렉트
+    if (authToken) {
+        window.location.href = 'admin.html';
+        return;
+    }
+    
+    // 로그인 폼 이벤트 리스너 등록
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+}
+
+// 대시보드 페이지 초기화
+function initDashboardPage() {
     if (!authToken) {
         // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
-        window.location.href = 'index.html';
+        window.location.href = 'admin-login.html';
         return;
     }
     
     // 대시보드 초기화
     loadApplications();
-});
+    
+    // 모달 이벤트 리스너 등록
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            closeChangePasswordModal();
+        }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeChangePasswordModal();
+        }
+    });
+}
+
+// 로그인 처리
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('errorMessage');
+    const loginBtn = document.querySelector('.login-btn');
+    
+    // 로딩 상태
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 로그인 중...';
+    errorMessage.style.display = 'none';
+    
+    try {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            authToken = result.token;
+            localStorage.setItem('adminToken', authToken);
+            window.location.href = 'admin.html';
+        } else {
+            errorMessage.style.display = 'block';
+            errorMessage.querySelector('span').textContent = result.message;
+        }
+    } catch (error) {
+        console.error('로그인 오류:', error);
+        errorMessage.style.display = 'block';
+        errorMessage.querySelector('span').textContent = '네트워크 오류가 발생했습니다.';
+    } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    }
+}
 
 // 신청서 목록 로드
 async function loadApplications() {
@@ -226,19 +310,5 @@ async function changePassword() {
 function logout() {
     authToken = null;
     localStorage.removeItem('adminToken');
-    window.location.href = 'index.html';
+    window.location.href = 'admin-login.html';
 }
-
-// 모달 외부 클릭 시 닫기
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) {
-        closeChangePasswordModal();
-    }
-});
-
-// ESC 키로 모달 닫기
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeChangePasswordModal();
-    }
-});

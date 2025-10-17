@@ -36,8 +36,12 @@ export async function onRequestPost(context) {
         const data = await request.json();
         const { currentPassword, newPassword } = data;
 
-        // 현재 비밀번호 검증
-        if (currentPassword !== '1234') {
+        // 현재 비밀번호 검증 (데이터베이스에서 확인)
+        const admin = await env['hara-db'].prepare(`
+            SELECT id, password FROM admins WHERE username = 'admin'
+        `).first();
+
+        if (!admin || admin.password !== currentPassword) {
             return new Response(JSON.stringify({
                 success: false,
                 message: '현재 비밀번호가 올바르지 않습니다.'
@@ -64,8 +68,16 @@ export async function onRequestPost(context) {
             });
         }
 
-        // 실제 환경에서는 D1 데이터베이스에 비밀번호를 저장하고 해시화해야 함
-        // 여기서는 간단하게 성공 응답만 반환
+        // 비밀번호 업데이트
+        const result = await env['hara-db'].prepare(`
+            UPDATE admins 
+            SET password = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE username = 'admin'
+        `).bind(newPassword).run();
+
+        if (!result.success) {
+            throw new Error('비밀번호 업데이트 실패');
+        }
         
         return new Response(JSON.stringify({
             success: true,
