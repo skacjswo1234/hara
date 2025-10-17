@@ -1,11 +1,21 @@
 // 단순한 관리자 시스템
+console.log('🔴 JavaScript 파일 로드됨!');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔴 DOM 로드 완료!');
+    
     const currentPage = window.location.pathname.split('/').pop();
+    console.log('🔴 현재 페이지:', currentPage);
+    console.log('🔴 전체 경로:', window.location.pathname);
     
     if (currentPage === 'admin-login.html') {
+        console.log('🔴 로그인 페이지 초기화 호출');
         initLogin();
     } else if (currentPage === 'admin.html') {
+        console.log('🔴 대시보드 초기화 호출');
         initDashboard();
+    } else {
+        console.log('🔴 알 수 없는 페이지:', currentPage);
     }
 });
 

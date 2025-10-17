@@ -23,6 +23,40 @@
         </div>
     </div>
 
+    <script>
+        console.log('🔴 HTML 내부 스크립트 실행됨!');
+        
+        // 즉시 실행되는 테스트
+        window.addEventListener('load', function() {
+            console.log('🔴 페이지 로드 완료!');
+            
+            const form = document.getElementById('loginForm');
+            console.log('🔴 폼 요소:', form);
+            
+            if (form) {
+                console.log('🔴 폼 이벤트 리스너 추가');
+                form.addEventListener('submit', function(e) {
+                    console.log('🔴 폼 제출됨!');
+                    e.preventDefault();
+                    
+                    const password = document.getElementById('password').value;
+                    console.log('🔴 입력된 비밀번호:', password);
+                    
+                    // 간단한 테스트 - 즉시 페이지 이동
+                    if (password === '1234') {
+                        console.log('🔴 비밀번호 일치! 페이지 이동');
+                        alert('로그인 성공! admin.html로 이동합니다.');
+                        window.location.href = 'admin.html';
+                    } else {
+                        console.log('🔴 비밀번호 불일치');
+                        alert('비밀번호가 틀렸습니다. (정답: 1234)');
+                    }
+                });
+            } else {
+                console.error('🔴 폼을 찾을 수 없습니다!');
+            }
+        });
+    </script>
     <script src="admin.js"></script>
 </body>
 </html>
