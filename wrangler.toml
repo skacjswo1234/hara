@@ -3,3 +3,9 @@ compatibility_date = "2024-01-01"
 
 # Cloudflare Pages 설정
 pages_build_output_dir = "."
+
+# D1 데이터베이스 바인딩
+[[d1_databases]]
+binding = "hara-db"
+database_name = "hara-db"
+database_id = "31a21c19-7ef0-45eb-b88c-a2a863dcf4ac"
