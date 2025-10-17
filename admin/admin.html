@@ -7,72 +7,52 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <div class="admin-container">
+    <div class="container">
         <header class="header">
-            <div class="header-left">
-                <h1>관리자 대시보드</h1>
-            </div>
-            
-            <!-- 데스크탑 네비게이션 -->
-            <nav class="desktop-nav">
-                <button class="nav-btn active" data-tab="inquiries">문의항목</button>
-                <button class="nav-btn" data-tab="password">비밀번호변경</button>
-            </nav>
-            
-            <div class="header-right">
-                <!-- 모바일 드롭다운 -->
-                <div class="mobile-dropdown">
-                    <button class="dropdown-toggle" id="dropdownToggle">
-                        <span class="menu-icon">☰</span>
-                        <span class="menu-text">메뉴</span>
-                    </button>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <button class="dropdown-item active" data-tab="inquiries">문의항목</button>
-                        <button class="dropdown-item" data-tab="password">비밀번호변경</button>
-                        <hr class="dropdown-divider">
-                        <button class="dropdown-item" id="logoutBtn">로그아웃</button>
-                    </div>
-                </div>
-                
-                <!-- 데스크탑 로그아웃 버튼 -->
-                <button id="desktopLogoutBtn" class="logout-btn">로그아웃</button>
-            </div>
+            <h1>관리자 대시보드</h1>
+            <button onclick="logout()" class="logout-btn">로그아웃</button>
         </header>
 
-        <main class="main-content">
+        <div class="content">
+            <!-- 탭 메뉴 -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('inquiries')">문의목록</button>
+                <button class="tab-btn" onclick="showTab('password')">비밀번호변경</button>
+            </div>
+
             <!-- 문의목록 탭 -->
-            <div class="tab-content active" id="inquiriesTab">
-                <div class="tab-header">
+            <div id="inquiries" class="tab-content active">
+                <div class="section-header">
                     <h2>문의목록</h2>
-                    <button class="refresh-btn" id="refreshInquiries">새로고침</button>
+                    <button onclick="loadInquiries()" class="refresh-btn">새로고침</button>
                 </div>
-                <div class="inquiries-list" id="inquiriesList">
+                <div id="inquiriesList" class="inquiries-container">
                     <div class="loading">로딩중...</div>
                 </div>
             </div>
 
             <!-- 비밀번호 변경 탭 -->
-            <div class="tab-content" id="passwordTab">
-                <div class="tab-header">
+            <div id="password" class="tab-content">
+                <div class="section-header">
                     <h2>비밀번호 변경</h2>
                 </div>
                 <form id="passwordForm" class="password-form">
-                    <div class="input-group">
+                    <div class="form-group">
                         <label>현재 비밀번호</label>
                         <input type="password" id="currentPassword" required>
                     </div>
-                    <div class="input-group">
+                    <div class="form-group">
                         <label>새 비밀번호</label>
                         <input type="password" id="newPassword" required>
                     </div>
-                    <div class="input-group">
+                    <div class="form-group">
                         <label>비밀번호 확인</label>
                         <input type="password" id="confirmPassword" required>
                     </div>
                     <button type="submit" class="submit-btn">비밀번호 변경</button>
                 </form>
             </div>
-        </main>
+        </div>
     </div>
 
     <script src="admin.js"></script>

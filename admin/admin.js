@@ -1,111 +1,28 @@
-// 관리자 시스템
+// 관리자 대시보드 JavaScript
+
+// 페이지 로드시 초기화
 document.addEventListener('DOMContentLoaded', function() {
-    const currentPage = window.location.pathname.split('/').pop();
-    
-    if (currentPage === 'admin-login.html') {
-        initLogin();
-    } else if (currentPage === 'admin.html') {
-        initDashboard();
-    }
+    loadInquiries();
+    initPasswordForm();
 });
 
-// 로그인 페이지 초기화
-function initLogin() {
-    const loginForm = document.getElementById('loginForm');
-    const messageDiv = document.getElementById('message');
-    
-    if (!loginForm) return;
-    
-    loginForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const password = document.getElementById('password').value;
-        
-        try {
-            const response = await fetch('/api/admin/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ password })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                messageDiv.textContent = '로그인 성공!';
-                messageDiv.className = 'message success';
-                setTimeout(() => {
-                    window.location.href = 'admin.html';
-                }, 500);
-            } else {
-                messageDiv.textContent = data.message || '로그인 실패';
-                messageDiv.className = 'message error';
-            }
-        } catch (error) {
-            messageDiv.textContent = '서버 오류가 발생했습니다.';
-            messageDiv.className = 'message error';
-        }
-    });
-}
-
-// 대시보드 초기화
-function initDashboard() {
-    // 탭 네비게이션
-    initTabs();
-    
-    // 모바일 드롭다운
-    initMobileMenu();
-    
-    // 로그아웃 버튼
-    initLogout();
-    
-    // 새로고침 버튼
-    initRefresh();
-    
-    // 문의목록 로드
-    loadInquiries();
-    
-    // 비밀번호 변경 폼
-    initPasswordForm();
-}
-
-// 탭 네비게이션
-function initTabs() {
-    const tabButtons = document.querySelectorAll('[data-tab]');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabName = this.getAttribute('data-tab');
-            if (tabName) {
-                switchTab(tabName);
-            }
-        });
-    });
-}
-
 // 탭 전환
-function switchTab(tabName) {
+function showTab(tabName) {
     // 모든 탭 숨기기
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // 모든 버튼 비활성화
-    document.querySelectorAll('[data-tab]').forEach(btn => {
+    // 모든 탭 버튼 비활성화
+    document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     
     // 선택된 탭 표시
-    const targetTab = document.getElementById(tabName + 'Tab');
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
+    document.getElementById(tabName).classList.add('active');
     
     // 선택된 버튼 활성화
-    document.querySelectorAll(`[data-tab="${tabName}"]`).forEach(btn => {
-        btn.classList.add('active');
-    });
+    event.target.classList.add('active');
     
     // 문의목록 탭이면 새로고침
     if (tabName === 'inquiries') {
@@ -113,53 +30,17 @@ function switchTab(tabName) {
     }
 }
 
-// 모바일 메뉴
-function initMobileMenu() {
-    const toggle = document.getElementById('dropdownToggle');
-    const menu = document.getElementById('dropdownMenu');
-    
-    if (toggle && menu) {
-        toggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            menu.classList.toggle('show');
-        });
-        
-        // 외부 클릭시 닫기
-        document.addEventListener('click', function() {
-            menu.classList.remove('show');
-        });
-    }
-}
-
 // 로그아웃
-function initLogout() {
-    const logoutButtons = document.querySelectorAll('#logoutBtn, #desktopLogoutBtn');
-    
-    logoutButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (confirm('로그아웃 하시겠습니까?')) {
-                window.location.href = 'admin-login.html';
-            }
-        });
-    });
-}
-
-// 새로고침
-function initRefresh() {
-    const refreshBtn = document.getElementById('refreshInquiries');
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', function() {
-            loadInquiries();
-        });
+function logout() {
+    if (confirm('로그아웃 하시겠습니까?')) {
+        window.location.href = 'admin-login.html';
     }
 }
 
 // 문의목록 로드
 async function loadInquiries() {
-    const inquiriesList = document.getElementById('inquiriesList');
-    if (!inquiriesList) return;
-    
-    inquiriesList.innerHTML = '<div class="loading">로딩중...</div>';
+    const container = document.getElementById('inquiriesList');
+    container.innerHTML = '<div class="loading">로딩중...</div>';
     
     try {
         const response = await fetch('/api/admin/applications');
@@ -171,11 +52,11 @@ async function loadInquiries() {
         const inquiries = await response.json();
         
         if (inquiries.length === 0) {
-            inquiriesList.innerHTML = '<div class="no-data">문의가 없습니다.</div>';
+            container.innerHTML = '<div class="no-data">문의가 없습니다.</div>';
             return;
         }
         
-        inquiriesList.innerHTML = inquiries.map(inquiry => `
+        container.innerHTML = inquiries.map(inquiry => `
             <div class="inquiry-item">
                 <div class="inquiry-info">
                     <h4>${inquiry.name || '이름 없음'}</h4>
@@ -188,24 +69,24 @@ async function loadInquiries() {
                 </div>
                 <div class="inquiry-actions">
                     ${inquiry.status === 'pending' ? 
-                        `<button onclick="updateStatus(${inquiry.id}, 'processing')">처리중</button>` : 
+                        `<button class="process-btn" onclick="updateStatus(${inquiry.id}, 'processing')">처리중</button>` : 
                         ''
                     }
                     ${inquiry.status === 'processing' ? 
-                        `<button onclick="updateStatus(${inquiry.id}, 'completed')">완료</button>` : 
+                        `<button class="complete-btn" onclick="updateStatus(${inquiry.id}, 'completed')">완료</button>` : 
                         ''
                     }
-                    <button onclick="deleteInquiry(${inquiry.id})" class="delete-btn">삭제</button>
+                    <button class="delete-btn" onclick="deleteInquiry(${inquiry.id})">삭제</button>
                 </div>
             </div>
         `).join('');
         
     } catch (error) {
-        inquiriesList.innerHTML = '<div class="error">문의목록을 불러올 수 없습니다.</div>';
+        container.innerHTML = '<div class="error">문의목록을 불러올 수 없습니다.</div>';
     }
 }
 
-// 상태 텍스트
+// 상태 텍스트 변환
 function getStatusText(status) {
     const statusMap = {
         'pending': '대기중',
@@ -257,12 +138,10 @@ async function deleteInquiry(id) {
     }
 }
 
-// 비밀번호 변경 폼
+// 비밀번호 변경 폼 초기화
 function initPasswordForm() {
-    const passwordForm = document.getElementById('passwordForm');
-    if (!passwordForm) return;
-    
-    passwordForm.addEventListener('submit', handlePasswordChange);
+    const form = document.getElementById('passwordForm');
+    form.addEventListener('submit', handlePasswordChange);
 }
 
 // 비밀번호 변경

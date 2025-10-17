@@ -6,230 +6,74 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f8f9fa;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
     color: #333;
-    line-height: 1.6;
 }
 
-/* 로그인 페이지 */
-.login-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.login-card {
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.login-card h1 {
-    margin-bottom: 30px;
-    color: #333;
-    font-size: 24px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: #007bff;
-}
-
-button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-.message {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.message.success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* 관리자 대시보드 */
-.admin-container {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* 헤더 */
 .header {
-    background: white;
-    padding: 16px 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: #007bff;
+    color: white;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
-.header-left h1 {
-    color: #333;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-/* 데스크탑 네비게이션 */
-.desktop-nav {
-    display: flex;
-    gap: 8px;
-}
-
-.nav-btn {
-    background: transparent;
-    color: #666;
-    border: 1px solid #e9ecef;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-    background: #f8f9fa;
-    color: #333;
-}
-
-.nav-btn.active {
-    background: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-/* 모바일 드롭다운 */
-.mobile-dropdown {
-    position: relative;
-    display: none;
-}
-
-.dropdown-toggle {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    min-width: 160px;
-    display: none;
-    z-index: 1000;
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-.dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    border: none;
-    background: transparent;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-item:hover {
-    background: #f8f9fa;
-}
-
-.dropdown-item.active {
-    background: #e3f2fd;
-    color: #007bff;
-}
-
-.dropdown-divider {
-    border: none;
-    border-top: 1px solid #e9ecef;
-    margin: 8px 0;
+.header h1 {
+    font-size: 24px;
 }
 
 .logout-btn {
     background: #dc3545;
-    font-size: 14px;
-    padding: 8px 16px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .logout-btn:hover {
     background: #c82333;
 }
 
-/* 메인 콘텐츠 */
-.main-content {
-    flex: 1;
+/* 콘텐츠 */
+.content {
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+}
+
+/* 탭 메뉴 */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+}
+
+.tab-btn:hover {
+    color: #007bff;
 }
 
 /* 탭 콘텐츠 */
@@ -241,25 +85,26 @@ button:hover {
     display: block;
 }
 
-.tab-header {
+/* 섹션 헤더 */
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #e9ecef;
 }
 
-.tab-header h2 {
+.section-header h2 {
+    font-size: 20px;
     color: #333;
-    font-size: 24px;
-    font-weight: 600;
 }
 
 .refresh-btn {
     background: #28a745;
-    font-size: 14px;
+    color: white;
+    border: none;
     padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .refresh-btn:hover {
@@ -267,11 +112,10 @@ button:hover {
 }
 
 /* 문의목록 */
-.inquiries-list {
+.inquiries-container {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    overflow: hidden;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
 }
 
 .inquiry-item {
@@ -280,7 +124,6 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 20px;
 }
 
 .inquiry-item:last-child {
@@ -293,68 +136,92 @@ button:hover {
 
 .inquiry-info h4 {
     color: #333;
+    margin-bottom: 10px;
     font-size: 18px;
-    margin-bottom: 12px;
-    font-weight: 600;
 }
 
 .inquiry-info p {
-    margin-bottom: 6px;
-    font-size: 14px;
+    margin-bottom: 5px;
     color: #666;
-}
-
-.inquiry-info strong {
-    color: #333;
-    font-weight: 600;
+    font-size: 14px;
 }
 
 .inquiry-actions {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
+    gap: 5px;
 }
 
 .inquiry-actions button {
-    padding: 6px 12px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
     font-size: 12px;
-    min-width: 80px;
+    min-width: 70px;
 }
 
-.delete-btn {
-    background: #dc3545 !important;
+.inquiry-actions .process-btn {
+    background: #007bff;
+    color: white;
 }
 
-.delete-btn:hover {
-    background: #c82333 !important;
+.inquiry-actions .complete-btn {
+    background: #28a745;
+    color: white;
 }
 
-/* 비밀번호 변경 폼 */
+.inquiry-actions .delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+/* 비밀번호 폼 */
 .password-form {
     background: white;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
     max-width: 500px;
 }
 
-.password-form .input-group {
+.form-group {
     margin-bottom: 20px;
 }
 
-.password-form label {
+.form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
+    margin-bottom: 5px;
+    font-weight: bold;
     color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 .submit-btn {
     background: #007bff;
+    color: white;
+    border: none;
     padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
     width: 100%;
+}
+
+.submit-btn:hover {
+    background: #0056b3;
 }
 
 /* 상태 메시지 */
@@ -362,62 +229,49 @@ button:hover {
     text-align: center;
     padding: 40px;
     color: #666;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .error {
     color: #dc3545;
-    background: #f8d7da;
 }
 
 /* 모바일 반응형 */
 @media (max-width: 768px) {
-    /* 헤더 모바일 */
+    .container {
+        margin: 0;
+    }
+    
     .header {
-        padding: 12px 16px;
+        padding: 15px;
     }
     
-    .header-left h1 {
-        font-size: 18px;
-    }
-    
-    /* 데스크탑 네비게이션 숨기기 */
-    .desktop-nav {
-        display: none;
-    }
-    
-    /* 모바일 드롭다운 표시 */
-    .mobile-dropdown {
-        display: block;
-    }
-    
-    /* 데스크탑 로그아웃 버튼 숨기기 */
-    .logout-btn {
-        display: none;
-    }
-    
-    /* 메인 콘텐츠 모바일 */
-    .main-content {
-        padding: 16px;
-    }
-    
-    .tab-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-    
-    .tab-header h2 {
+    .header h1 {
         font-size: 20px;
     }
     
-    /* 문의목록 모바일 */
+    .content {
+        padding: 15px;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+        border-right: none;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
     .inquiry-item {
         flex-direction: column;
-        padding: 16px;
-        gap: 12px;
+        gap: 15px;
     }
     
     .inquiry-actions {
@@ -425,49 +279,25 @@ button:hover {
         justify-content: center;
     }
     
-    .inquiry-actions button {
-        flex: 1;
-        max-width: 100px;
-    }
-    
-    /* 비밀번호 폼 모바일 */
     .password-form {
         padding: 20px;
-    }
-    
-    /* 로그인 카드 모바일 */
-    .login-card {
-        padding: 30px 20px;
-        margin: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .header {
-        padding: 10px 12px;
+        padding: 10px;
     }
     
-    .header-left h1 {
-        font-size: 16px;
-    }
-    
-    .main-content {
-        padding: 12px;
-    }
-    
-    .tab-header h2 {
+    .header h1 {
         font-size: 18px;
     }
     
-    .inquiry-item {
-        padding: 12px;
+    .content {
+        padding: 10px;
     }
     
     .password-form {
-        padding: 16px;
-    }
-    
-    .login-card {
-        padding: 20px 16px;
+        padding: 15px;
     }
 }
