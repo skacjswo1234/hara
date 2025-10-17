@@ -23,32 +23,15 @@ class AdminSystem {
         this.checkAuthStatus();
     }
 
-    // 인증 상태 확인
+    // 인증 상태 확인 (제거됨 - 데이터베이스 기반으로 변경)
     checkAuthStatus() {
-        const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-        
-        console.log('인증 상태 확인:', { isLoggedIn });
-        
-        if (isLoggedIn) {
-            this.isLoggedIn = true;
-            
-            // 로그인 페이지에서 대시보드로 리다이렉트
-            if (window.location.pathname.includes('admin-login.html')) {
-                console.log('이미 로그인됨, 대시보드로 이동');
-                window.location.href = 'admin.html';
-            }
-        } else {
-            // 대시보드에서 로그인 페이지로 리다이렉트
-            if (window.location.pathname.includes('admin.html')) {
-                console.log('로그인되지 않음, 로그인 페이지로 이동');
-                window.location.href = 'admin-login.html';
-            }
-        }
+        // 인증 로직 제거 - 데이터베이스 비밀번호만 체크
+        console.log('인증 상태 확인 제거됨 - 데이터베이스 기반 인증 사용');
     }
 
-    // 인증 정보 초기화
+    // 인증 정보 초기화 (제거됨)
     clearAuth() {
-        localStorage.removeItem('adminLoggedIn');
+        // localStorage 사용 안함
         this.isLoggedIn = false;
         this.currentUser = null;
     }
@@ -205,9 +188,8 @@ class AdminSystem {
             console.log('응답 데이터:', data);
             
             if (data.success === true) {
-                // 로그인 성공
-                console.log('로그인 성공!');
-                localStorage.setItem('adminLoggedIn', 'true');
+                // 로그인 성공 - localStorage 사용 안함
+                console.log('로그인 성공! 데이터베이스 인증 완료');
                 
                 // 성공 메시지 표시
                 errorMessage.textContent = '로그인 성공! 페이지를 이동합니다...';
@@ -216,11 +198,9 @@ class AdminSystem {
                 errorMessage.style.color = '#155724';
                 errorMessage.style.border = '1px solid #c3e6cb';
                 
-                // 잠시 후 리다이렉트
-                setTimeout(() => {
-                    console.log('페이지 이동 중...');
-                    window.location.href = 'admin.html';
-                }, 1000);
+                // 즉시 리다이렉트
+                console.log('페이지 이동 중...');
+                window.location.href = 'admin.html';
             } else {
                 // 로그인 실패
                 console.log('로그인 실패:', data.message);
