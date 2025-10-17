@@ -8,108 +8,40 @@
 </head>
 <body>
     <div class="admin-container">
-        <!-- 모바일 헤더 -->
-        <header class="admin-header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="../images/logo.webp" alt="Logo" class="logo">
-                    <h1>관리자</h1>
-                </div>
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+        <header class="header">
+            <h1>관리자 대시보드</h1>
+            <button id="logoutBtn">로그아웃</button>
         </header>
 
-        <!-- 사이드바 -->
-        <aside class="sidebar" id="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">대시보드</a></li>
-                    <li><a href="#applications" class="nav-link" data-section="applications">신청서 관리</a></li>
-                    <li><a href="#settings" class="nav-link" data-section="settings">설정</a></li>
-                    <li><a href="#logout" class="nav-link logout">로그아웃</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- 메인 콘텐츠 -->
         <main class="main-content">
-            <!-- 대시보드 섹션 -->
-            <section id="dashboard" class="content-section active">
-                <div class="section-header">
-                    <h2>대시보드</h2>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>총 신청서</h3>
-                        <p class="stat-number" id="totalApplications">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>새 신청서</h3>
-                        <p class="stat-number" id="newApplications">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>처리 완료</h3>
-                        <p class="stat-number" id="processedApplications">0</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 신청서 관리 섹션 -->
-            <section id="applications" class="content-section">
-                <div class="section-header">
-                    <h2>신청서 관리</h2>
-                    <div class="filter-controls">
-                        <select id="statusFilter">
-                            <option value="">전체</option>
-                            <option value="pending">대기중</option>
-                            <option value="processing">처리중</option>
-                            <option value="completed">완료</option>
-                        </select>
-                        <button class="refresh-btn" id="refreshApplications">새로고침</button>
-                    </div>
-                </div>
-                
-                <div class="applications-list" id="applicationsList">
+            <!-- 문의목록 섹션 -->
+            <section class="section">
+                <h2>문의목록</h2>
+                <div class="inquiries-list" id="inquiriesList">
                     <div class="loading">로딩중...</div>
                 </div>
             </section>
 
-            <!-- 설정 섹션 -->
-            <section id="settings" class="content-section">
-                <div class="section-header">
-                    <h2>설정</h2>
-                </div>
-                
-                <div class="settings-content">
-                    <div class="setting-group">
-                        <h3>비밀번호 변경</h3>
-                        <form id="passwordChangeForm">
-                            <div class="input-group">
-                                <label for="currentPassword">현재 비밀번호</label>
-                                <input type="password" id="currentPassword" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="newPassword">새 비밀번호</label>
-                                <input type="password" id="newPassword" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="confirmPassword">비밀번호 확인</label>
-                                <input type="password" id="confirmPassword" required>
-                            </div>
-                            <button type="submit" class="submit-btn">비밀번호 변경</button>
-                        </form>
+            <!-- 비밀번호 변경 섹션 -->
+            <section class="section">
+                <h2>비밀번호 변경</h2>
+                <form id="passwordForm">
+                    <div class="input-group">
+                        <label>현재 비밀번호</label>
+                        <input type="password" id="currentPassword" required>
                     </div>
-                </div>
+                    <div class="input-group">
+                        <label>새 비밀번호</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="input-group">
+                        <label>비밀번호 확인</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit">비밀번호 변경</button>
+                </form>
             </section>
         </main>
-
-        <!-- 모바일 오버레이 -->
-        <div class="mobile-overlay" id="mobileOverlay"></div>
     </div>
 
     <script src="admin.js"></script>
