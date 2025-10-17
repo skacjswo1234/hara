@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # 사이트맵 위치
-Sitemap: https://hara-16o.pages.dev/sitemap.xml
+Sitemap: https://hara38.com/sitemap.xml
 
 # 관리자 페이지는 크롤링 제외
 Disallow: /admin/
