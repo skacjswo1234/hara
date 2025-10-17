@@ -11,6 +11,9 @@ body {
     color: #333;
 }
 
+/* Black Han Sans 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans:wght@400&display=swap');
+
 /* 로그인 페이지 */
 .login-container {
     min-height: 100vh;
@@ -30,10 +33,47 @@ body {
     text-align: center;
 }
 
-.login-card h1 {
+/* 로그인 헤더 */
+.login-header {
+    text-align: center;
     margin-bottom: 30px;
+}
+
+.login-header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 20px;
+}
+
+.login-header .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.login-header .logo h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #007bff;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    margin: 0;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-stroke: 0.5px #007bff;
+    -webkit-text-stroke: 0.5px #007bff;
+}
+
+.login-header h2 {
+    font-family: 'Black Han Sans', sans-serif;
     color: #333;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: 0.5px;
 }
 
 .input-group {
@@ -104,10 +144,48 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.header h1 {
-    font-size: 24px;
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* 로고 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.logo h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    margin: 0;
+    letter-spacing: 1px;
 }
 
 .logout-btn {
@@ -117,6 +195,8 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .logout-btn:hover {
@@ -398,10 +478,26 @@ body {
     
     .header {
         padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
     
-    .header h1 {
-        font-size: 20px;
+    .header-left {
+        width: 100%;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .header h2 {
+        font-size: 18px;
+    }
+    
+    .logo h1 {
+        font-size: 1.8rem;
     }
     
     .content {
@@ -450,6 +546,21 @@ body {
     .password-form {
         padding: 20px;
     }
+    
+    .login-header .logo h1 {
+        font-size: 1.8rem;
+    }
+    
+    .login-header .logo-img {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .login-header h2 {
+        font-family: 'Black Han Sans', sans-serif;
+        font-size: 19px;
+        font-weight: 400;
+    }
 }
 
 @media (max-width: 480px) {
@@ -457,8 +568,17 @@ body {
         padding: 10px;
     }
     
-    .header h1 {
-        font-size: 18px;
+    .header h2 {
+        font-size: 16px;
+    }
+    
+    .logo h1 {
+        font-size: 1.6rem;
+    }
+    
+    .logo-img {
+        width: 35px;
+        height: 35px;
     }
     
     .content {
@@ -467,5 +587,20 @@ body {
     
     .password-form {
         padding: 15px;
+    }
+    
+    .login-header .logo h1 {
+        font-size: 1.6rem;
+    }
+    
+    .login-header .logo-img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .login-header h2 {
+        font-family: 'Black Han Sans', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
     }
 }
