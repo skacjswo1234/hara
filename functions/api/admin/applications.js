@@ -92,14 +92,14 @@ export async function onRequestGet(context) {
     }
 }
 
-export async function onRequestPatch(context) {
+export async function onRequestPost(context) {
     const { request, env, params } = context;
     
     try {
         // CORS 헤더 설정
         const corsHeaders = {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'PATCH, OPTIONS',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         };
 

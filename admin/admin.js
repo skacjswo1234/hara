@@ -123,7 +123,7 @@ function getStatusText(status) {
 async function updateStatus(id, status) {
     try {
         const response = await fetch(`/api/admin/applications/${id}`, {
-            method: 'PATCH',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
