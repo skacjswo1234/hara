@@ -97,27 +97,141 @@ function initLogin() {
 
 // 대시보드 초기화
 function initDashboard() {
-    // 로그아웃 버튼
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-        if (confirm('로그아웃 하시겠습니까?')) {
-            window.location.href = 'admin-login.html';
-        }
-    });
+    console.log('🔵 대시보드 초기화 시작');
+    
+    // 탭 네비게이션 초기화
+    initTabNavigation();
+    
+    // 모바일 드롭다운 초기화
+    initMobileDropdown();
+    
+    // 로그아웃 버튼 초기화
+    initLogoutButtons();
     
     // 문의목록 로드
     loadInquiries();
     
-    // 비밀번호 변경 폼
-    document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+    // 비밀번호 변경 폼 초기화
+    initPasswordForm();
+    
+    console.log('✅ 대시보드 초기화 완료');
+}
+
+// 탭 네비게이션 초기화
+function initTabNavigation() {
+    console.log('🔵 탭 네비게이션 초기화');
+    
+    const navButtons = document.querySelectorAll('.nav-btn, .dropdown-item');
+    
+    navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            
+            if (tabName) {
+                console.log('🔵 탭 변경:', tabName);
+                switchTab(tabName);
+                
+                // 모바일 드롭다운 닫기
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.remove('show');
+                }
+            }
+        });
+    });
+}
+
+// 탭 전환
+function switchTab(tabName) {
+    console.log('🔵 탭 전환:', tabName);
+    
+    // 모든 탭 콘텐츠 숨기기
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // 모든 네비게이션 버튼 비활성화
+    document.querySelectorAll('.nav-btn, .dropdown-item').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // 선택된 탭 표시
+    const targetTab = document.getElementById(tabName + 'Tab');
+    if (targetTab) {
+        targetTab.classList.add('active');
+    }
+    
+    // 선택된 버튼 활성화
+    document.querySelectorAll(`[data-tab="${tabName}"]`).forEach(btn => {
+        btn.classList.add('active');
+    });
+    
+    // 문의목록 탭이면 새로고침
+    if (tabName === 'inquiries') {
+        loadInquiries();
+    }
+}
+
+// 모바일 드롭다운 초기화
+function initMobileDropdown() {
+    console.log('🔵 모바일 드롭다운 초기화');
+    
+    const dropdownToggle = document.getElementById('dropdownToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // 외부 클릭시 드롭다운 닫기
+        document.addEventListener('click', function() {
+            dropdownMenu.classList.remove('show');
+        });
+    }
+}
+
+// 로그아웃 버튼 초기화
+function initLogoutButtons() {
+    console.log('🔵 로그아웃 버튼 초기화');
+    
+    const logoutButtons = document.querySelectorAll('#logoutBtn, #desktopLogoutBtn');
+    
+    logoutButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                console.log('🔵 로그아웃 실행');
+                window.location.href = 'admin-login.html';
+            }
+        });
+    });
 }
 
 // 문의목록 로드
 async function loadInquiries() {
+    console.log('🔵 문의목록 로드 시작');
+    
     const inquiriesList = document.getElementById('inquiriesList');
+    if (!inquiriesList) {
+        console.error('❌ 문의목록 컨테이너를 찾을 수 없습니다!');
+        return;
+    }
+    
+    inquiriesList.innerHTML = '<div class="loading">로딩중...</div>';
     
     try {
+        console.log('🔵 API 요청:', '/api/admin/applications');
         const response = await fetch('/api/admin/applications');
+        
+        console.log('🔵 응답 상태:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const inquiries = await response.json();
+        console.log('🔵 문의목록 데이터:', inquiries);
         
         if (inquiries.length === 0) {
             inquiriesList.innerHTML = '<div class="no-data">문의가 없습니다.</div>';
@@ -148,7 +262,10 @@ async function loadInquiries() {
             </div>
         `).join('');
         
+        console.log('✅ 문의목록 렌더링 완료');
+        
     } catch (error) {
+        console.error('❌ 문의목록 로드 오류:', error);
         inquiriesList.innerHTML = '<div class="error">문의목록을 불러올 수 없습니다.</div>';
     }
 }
@@ -165,6 +282,8 @@ function getStatusText(status) {
 
 // 상태 업데이트
 async function updateStatus(id, status) {
+    console.log('🔵 상태 업데이트:', id, status);
+    
     try {
         const response = await fetch(`/api/admin/applications/${id}`, {
             method: 'PATCH',
@@ -174,18 +293,25 @@ async function updateStatus(id, status) {
             body: JSON.stringify({ status })
         });
         
+        console.log('🔵 상태 업데이트 응답:', response.status);
+        
         if (response.ok) {
+            console.log('✅ 상태 업데이트 성공');
             loadInquiries(); // 목록 새로고침
         } else {
+            console.error('❌ 상태 업데이트 실패');
             alert('상태 업데이트에 실패했습니다.');
         }
     } catch (error) {
+        console.error('❌ 상태 업데이트 오류:', error);
         alert('서버 오류가 발생했습니다.');
     }
 }
 
 // 문의 삭제
 async function deleteInquiry(id) {
+    console.log('🔵 문의 삭제:', id);
+    
     if (!confirm('정말로 삭제하시겠습니까?')) {
         return;
     }
@@ -195,23 +321,48 @@ async function deleteInquiry(id) {
             method: 'DELETE'
         });
         
+        console.log('🔵 삭제 응답:', response.status);
+        
         if (response.ok) {
+            console.log('✅ 삭제 성공');
             loadInquiries(); // 목록 새로고침
         } else {
+            console.error('❌ 삭제 실패');
             alert('삭제에 실패했습니다.');
         }
     } catch (error) {
+        console.error('❌ 삭제 오류:', error);
         alert('서버 오류가 발생했습니다.');
     }
 }
 
+// 비밀번호 변경 폼 초기화
+function initPasswordForm() {
+    console.log('🔵 비밀번호 변경 폼 초기화');
+    
+    const passwordForm = document.getElementById('passwordForm');
+    if (!passwordForm) {
+        console.error('❌ 비밀번호 폼을 찾을 수 없습니다!');
+        return;
+    }
+    
+    passwordForm.addEventListener('submit', handlePasswordChange);
+}
+
 // 비밀번호 변경
 async function handlePasswordChange(e) {
+    console.log('🔵 비밀번호 변경 시도');
     e.preventDefault();
     
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    console.log('🔵 입력값 확인:', { 
+        hasCurrent: !!currentPassword, 
+        hasNew: !!newPassword, 
+        hasConfirm: !!confirmPassword 
+    });
     
     if (newPassword !== confirmPassword) {
         alert('새 비밀번호가 일치하지 않습니다.');
@@ -224,6 +375,8 @@ async function handlePasswordChange(e) {
     }
     
     try {
+        console.log('🔵 비밀번호 변경 API 요청');
+        
         const response = await fetch('/api/admin/change-password', {
             method: 'POST',
             headers: {
@@ -235,15 +388,21 @@ async function handlePasswordChange(e) {
             })
         });
         
+        console.log('🔵 비밀번호 변경 응답:', response.status);
+        
         const data = await response.json();
+        console.log('🔵 비밀번호 변경 응답 데이터:', data);
         
         if (data.success) {
+            console.log('✅ 비밀번호 변경 성공');
             alert('비밀번호가 성공적으로 변경되었습니다.');
             document.getElementById('passwordForm').reset();
         } else {
+            console.error('❌ 비밀번호 변경 실패:', data.message);
             alert(data.message || '비밀번호 변경에 실패했습니다.');
         }
     } catch (error) {
+        console.error('❌ 비밀번호 변경 오류:', error);
         alert('서버 오류가 발생했습니다.');
     }
 }
