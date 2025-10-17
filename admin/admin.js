@@ -35,9 +35,9 @@ function initLogin() {
     
     loginForm.addEventListener('submit', async function(e) {
         console.log('🔵 폼 제출 이벤트 발생');
-        e.preventDefault();
-        
-        const password = document.getElementById('password').value;
+    e.preventDefault();
+    
+    const password = document.getElementById('password').value;
         console.log('🔵 입력된 비밀번호:', password);
         
         const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -48,14 +48,14 @@ function initLogin() {
         try {
             console.log('🔵 API 요청 시작:', '/api/admin/login');
             
-            const response = await fetch('/api/admin/login', {
-                method: 'POST',
-                headers: {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ password })
-            });
-            
+            },
+            body: JSON.stringify({ password })
+        });
+        
             console.log('🔵 API 응답 상태:', response.status);
             console.log('🔵 API 응답 헤더:', response.headers);
             
@@ -75,18 +75,18 @@ function initLogin() {
                 console.log('🔵 1초 후 페이지 이동 예약');
                 setTimeout(() => {
                     console.log('🔵 페이지 이동 실행:', 'admin.html');
-                    window.location.href = 'admin.html';
+            window.location.href = 'admin.html';
                 }, 1000);
-            } else {
+        } else {
                 console.log('❌ 로그인 실패:', data.message);
                 messageDiv.textContent = data.message || '로그인 실패';
                 messageDiv.className = 'message error';
-            }
-        } catch (error) {
+        }
+    } catch (error) {
             console.error('❌ 로그인 오류:', error);
             messageDiv.textContent = `서버 오류가 발생했습니다: ${error.message}`;
             messageDiv.className = 'message error';
-        } finally {
+    } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
@@ -99,6 +99,14 @@ function initLogin() {
 function initDashboard() {
     console.log('🔵 대시보드 초기화 시작');
     
+    // DOM 요소 확인
+    console.log('🔵 DOM 요소 확인:');
+    console.log('  - 탭 버튼들:', document.querySelectorAll('.nav-btn'));
+    console.log('  - 드롭다운 버튼:', document.getElementById('dropdownToggle'));
+    console.log('  - 로그아웃 버튼들:', document.querySelectorAll('#logoutBtn, #desktopLogoutBtn'));
+    console.log('  - 문의목록 컨테이너:', document.getElementById('inquiriesList'));
+    console.log('  - 비밀번호 폼:', document.getElementById('passwordForm'));
+    
     // 탭 네비게이션 초기화
     initTabNavigation();
     
@@ -107,6 +115,9 @@ function initDashboard() {
     
     // 로그아웃 버튼 초기화
     initLogoutButtons();
+    
+    // 새로고침 버튼 초기화
+    initRefreshButton();
     
     // 문의목록 로드
     loadInquiries();
@@ -122,10 +133,16 @@ function initTabNavigation() {
     console.log('🔵 탭 네비게이션 초기화');
     
     const navButtons = document.querySelectorAll('.nav-btn, .dropdown-item');
+    console.log('🔵 찾은 네비게이션 버튼들:', navButtons);
     
-    navButtons.forEach(button => {
-        button.addEventListener('click', function() {
+    navButtons.forEach((button, index) => {
+        console.log(`🔵 버튼 ${index + 1} 이벤트 리스너 추가:`, button);
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🔵 네비게이션 버튼 클릭:', this);
+            
             const tabName = this.getAttribute('data-tab');
+            console.log('🔵 탭 이름:', tabName);
             
             if (tabName) {
                 console.log('🔵 탭 변경:', tabName);
@@ -135,10 +152,17 @@ function initTabNavigation() {
                 const dropdownMenu = document.getElementById('dropdownMenu');
                 if (dropdownMenu) {
                     dropdownMenu.classList.remove('show');
+                    console.log('🔵 드롭다운 메뉴 닫기');
                 }
+            } else {
+                console.log('🔵 data-tab 속성이 없음, 로그아웃 버튼일 수 있음');
             }
         });
     });
+    
+    if (navButtons.length === 0) {
+        console.error('❌ 네비게이션 버튼을 찾을 수 없습니다!');
+    }
 }
 
 // 탭 전환
@@ -179,16 +203,41 @@ function initMobileDropdown() {
     const dropdownToggle = document.getElementById('dropdownToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
     
+    console.log('🔵 드롭다운 요소들:', { dropdownToggle, dropdownMenu });
+    
     if (dropdownToggle && dropdownMenu) {
+        console.log('🔵 드롭다운 토글 이벤트 리스너 추가');
         dropdownToggle.addEventListener('click', function(e) {
             e.stopPropagation();
+            console.log('🔵 드롭다운 토글 클릭');
             dropdownMenu.classList.toggle('show');
+            console.log('🔵 드롭다운 상태:', dropdownMenu.classList.contains('show') ? '열림' : '닫힘');
         });
         
         // 외부 클릭시 드롭다운 닫기
         document.addEventListener('click', function() {
-            dropdownMenu.classList.remove('show');
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+                console.log('🔵 외부 클릭으로 드롭다운 닫기');
+            }
         });
+    } else {
+        console.error('❌ 드롭다운 요소를 찾을 수 없습니다!');
+    }
+}
+
+// 새로고침 버튼 초기화
+function initRefreshButton() {
+    console.log('🔵 새로고침 버튼 초기화');
+    
+    const refreshBtn = document.getElementById('refreshInquiries');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', function() {
+            console.log('🔵 새로고침 버튼 클릭');
+            loadInquiries();
+        });
+    } else {
+        console.error('❌ 새로고침 버튼을 찾을 수 없습니다!');
     }
 }
 
@@ -197,15 +246,22 @@ function initLogoutButtons() {
     console.log('🔵 로그아웃 버튼 초기화');
     
     const logoutButtons = document.querySelectorAll('#logoutBtn, #desktopLogoutBtn');
+    console.log('🔵 찾은 로그아웃 버튼들:', logoutButtons);
     
     logoutButtons.forEach(button => {
+        console.log('🔵 로그아웃 버튼 이벤트 리스너 추가:', button);
         button.addEventListener('click', function() {
+            console.log('🔵 로그아웃 버튼 클릭');
             if (confirm('로그아웃 하시겠습니까?')) {
                 console.log('🔵 로그아웃 실행');
                 window.location.href = 'admin-login.html';
             }
         });
     });
+    
+    if (logoutButtons.length === 0) {
+        console.error('❌ 로그아웃 버튼을 찾을 수 없습니다!');
+    }
 }
 
 // 문의목록 로드
@@ -260,7 +316,7 @@ async function loadInquiries() {
                     <button onclick="deleteInquiry(${inquiry.id})" class="delete-btn">삭제</button>
                 </div>
             </div>
-        `).join('');
+    `).join('');
         
         console.log('✅ 문의목록 렌더링 완료');
         
@@ -341,12 +397,16 @@ function initPasswordForm() {
     console.log('🔵 비밀번호 변경 폼 초기화');
     
     const passwordForm = document.getElementById('passwordForm');
+    console.log('🔵 비밀번호 폼 요소:', passwordForm);
+    
     if (!passwordForm) {
         console.error('❌ 비밀번호 폼을 찾을 수 없습니다!');
         return;
     }
     
+    console.log('🔵 비밀번호 폼 이벤트 리스너 추가');
     passwordForm.addEventListener('submit', handlePasswordChange);
+    console.log('✅ 비밀번호 폼 초기화 완료');
 }
 
 // 비밀번호 변경
