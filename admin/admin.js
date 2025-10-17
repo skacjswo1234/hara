@@ -59,11 +59,11 @@ async function loadInquiries() {
         container.innerHTML = inquiries.map(inquiry => `
             <div class="inquiry-item">
                 <div class="inquiry-info">
-                    <h4>${inquiry.name || '이름 없음'}</h4>
-                    <p><strong>이메일:</strong> ${inquiry.email || 'N/A'}</p>
-                    <p><strong>전화:</strong> ${inquiry.phone || 'N/A'}</p>
+                    <h4>신청서 #${inquiry.id}</h4>
+                    <p><strong>연락처:</strong> ${inquiry.email || 'N/A'}</p>
                     <p><strong>주소:</strong> ${inquiry.address || 'N/A'}</p>
                     <p><strong>문의내용:</strong> ${inquiry.inquiry || 'N/A'}</p>
+                    <p><strong>관심항목:</strong> ${inquiry.items || 'N/A'}</p>
                     <p><strong>신청일:</strong> ${new Date(inquiry.createdAt).toLocaleDateString('ko-KR')}</p>
                     <p><strong>상태:</strong> ${getStatusText(inquiry.status)}</p>
                 </div>

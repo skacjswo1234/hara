@@ -26,7 +26,7 @@ export async function onRequestGet(context) {
         let applications;
         try {
             applications = await env['hara-db'].prepare(`
-                SELECT id, name, email, phone, address, contact, inquiry, items, status, created_at
+                SELECT id, address, contact, inquiry, items, status, created_at, updated_at
                 FROM applications
                 ORDER BY created_at DESC
             `).all();
@@ -55,12 +55,12 @@ export async function onRequestGet(context) {
             });
         }
 
-        // 데이터 포맷팅
+        // 데이터 포맷팅 (실제 테이블 구조에 맞게)
         const formattedApplications = applications.results.map(app => ({
             id: app.id,
-            name: app.name || '이름 없음',
-            email: app.email || app.contact || 'N/A',
-            phone: app.phone || 'N/A',
+            name: '신청자', // 고정값
+            email: app.contact || 'N/A', // contact를 email로 사용
+            phone: 'N/A', // phone 컬럼이 없으므로 N/A
             address: app.address || 'N/A',
             inquiry: app.inquiry || 'N/A',
             items: app.items || 'N/A',
