@@ -193,15 +193,22 @@ body {
 .inquiries-container {
     background: white;
     border: 1px solid #e9ecef;
-    border-radius: 5px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .inquiry-item {
-    padding: 20px;
+    padding: 25px;
     border-bottom: 1px solid #f1f3f4;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.inquiry-item:hover {
+    background-color: #f8f9fa;
 }
 
 .inquiry-item:last-child {
@@ -213,15 +220,78 @@ body {
 }
 
 .inquiry-info h4 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 8px;
 }
 
-.inquiry-info p {
-    margin-bottom: 5px;
-    color: #666;
+.inquiry-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.inquiry-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.inquiry-detail .label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.inquiry-detail .value {
+    color: #333;
     font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.inquiry-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+    margin-top: 15px;
+}
+
+.inquiry-date {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.inquiry-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.inquiry-status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.inquiry-status.processing {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.inquiry-status.completed {
+    background-color: #d4edda;
+    color: #155724;
 }
 
 .inquiry-actions {
@@ -350,11 +420,24 @@ body {
     .inquiry-item {
         flex-direction: column;
         gap: 15px;
+        padding: 20px;
+    }
+    
+    .inquiry-details {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .inquiry-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
     
     .inquiry-actions {
         flex-direction: row;
         justify-content: center;
+        flex-wrap: wrap;
     }
     
     .password-form {

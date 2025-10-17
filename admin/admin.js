@@ -60,13 +60,36 @@ async function loadInquiries() {
             <div class="inquiry-item">
                 <div class="inquiry-info">
                     <h4>신청서 #${inquiry.id}</h4>
-                    <p><strong>연락처:</strong> ${inquiry.email || 'N/A'}</p>
-                    <p><strong>주소:</strong> ${inquiry.address || 'N/A'}</p>
-                    <p><strong>문의내용:</strong> ${inquiry.inquiry || 'N/A'}</p>
-                    <p><strong>관심항목:</strong> ${inquiry.items || 'N/A'}</p>
-                    <p><strong>신청일:</strong> ${new Date(inquiry.createdAt).toLocaleDateString('ko-KR')}</p>
-                    <p><strong>상태:</strong> ${getStatusText(inquiry.status)}</p>
+                    
+                    <div class="inquiry-details">
+                        <div class="inquiry-detail">
+                            <div class="label">연락처</div>
+                            <div class="value">${inquiry.email || 'N/A'}</div>
+                        </div>
+                        <div class="inquiry-detail">
+                            <div class="label">주소</div>
+                            <div class="value">${inquiry.address || 'N/A'}</div>
+                        </div>
+                        <div class="inquiry-detail">
+                            <div class="label">문의내용</div>
+                            <div class="value">${inquiry.inquiry || 'N/A'}</div>
+                        </div>
+                        <div class="inquiry-detail">
+                            <div class="label">관심항목</div>
+                            <div class="value">${inquiry.items || 'N/A'}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="inquiry-meta">
+                        <div class="inquiry-date">
+                            신청일: ${new Date(inquiry.createdAt).toLocaleDateString('ko-KR')}
+                        </div>
+                        <div class="inquiry-status ${inquiry.status}">
+                            ${getStatusText(inquiry.status)}
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="inquiry-actions">
                     ${inquiry.status === 'pending' ? 
                         `<button class="process-btn" onclick="updateStatus(${inquiry.id}, 'processing')">처리중</button>` : 
