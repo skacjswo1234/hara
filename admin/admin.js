@@ -154,7 +154,6 @@ class AdminSystem {
         e.preventDefault();
         
         const formData = new FormData(e.target);
-        const username = formData.get('username');
         const password = formData.get('password');
         
         const errorMessage = document.getElementById('errorMessage');
@@ -165,7 +164,7 @@ class AdminSystem {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ password })
             });
             
             const data = await response.json();

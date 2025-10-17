@@ -19,13 +19,13 @@ export async function onRequestPost(context) {
 
         // 요청 데이터 파싱
         const data = await request.json();
-        const { username, password } = data;
+        const { password } = data;
 
         // 입력 검증
-        if (!username || !password) {
+        if (!password) {
             return new Response(JSON.stringify({
                 success: false,
-                message: '사용자명과 비밀번호를 입력해주세요.'
+                message: '비밀번호를 입력해주세요.'
             }), {
                 status: 400,
                 headers: {
@@ -35,15 +35,15 @@ export async function onRequestPost(context) {
             });
         }
 
-        // 데이터베이스에서 관리자 정보 확인
+        // 데이터베이스에서 관리자 정보 확인 (기본 관리자 계정)
         const admin = await env['hara-db'].prepare(`
-            SELECT id, username, password FROM admins WHERE username = ?
-        `).bind(username).first();
+            SELECT id, username, password FROM admins WHERE username = 'admin'
+        `).first();
 
         if (!admin) {
             return new Response(JSON.stringify({
                 success: false,
-                message: '사용자명 또는 비밀번호가 올바르지 않습니다.'
+                message: '비밀번호가 올바르지 않습니다.'
             }), {
                 status: 401,
                 headers: {
@@ -76,7 +76,7 @@ export async function onRequestPost(context) {
         } else {
             return new Response(JSON.stringify({
                 success: false,
-                message: '사용자명 또는 비밀번호가 올바르지 않습니다.'
+                message: '비밀번호가 올바르지 않습니다.'
             }), {
                 status: 401,
                 headers: {
