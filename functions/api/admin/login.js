@@ -55,17 +55,9 @@ export async function onRequestPost(context) {
 
         // 비밀번호 검증
         if (password === admin.password) {
-            // 토큰 생성
-            const token = btoa('admin:' + Date.now() + ':' + Math.random());
-            
             return new Response(JSON.stringify({
                 success: true,
-                message: '로그인 성공',
-                token: token,
-                user: {
-                    id: admin.id,
-                    username: admin.username
-                }
+                message: '로그인 성공'
             }), {
                 status: 200,
                 headers: {

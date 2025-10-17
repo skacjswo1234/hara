@@ -25,24 +25,17 @@ class AdminSystem {
 
     // 인증 상태 확인
     checkAuthStatus() {
-        const token = localStorage.getItem('adminToken');
-        const user = localStorage.getItem('adminUser');
+        const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
         
-        console.log('인증 상태 확인:', { token: !!token, user: !!user });
+        console.log('인증 상태 확인:', { isLoggedIn });
         
-        if (token && user) {
-            try {
-                this.isLoggedIn = true;
-                this.currentUser = JSON.parse(user);
-                
-                // 로그인 페이지에서 대시보드로 리다이렉트
-                if (window.location.pathname.includes('admin-login.html')) {
-                    console.log('이미 로그인됨, 대시보드로 이동');
-                    window.location.href = 'admin.html';
-                }
-            } catch (error) {
-                console.error('사용자 정보 파싱 오류:', error);
-                this.clearAuth();
+        if (isLoggedIn) {
+            this.isLoggedIn = true;
+            
+            // 로그인 페이지에서 대시보드로 리다이렉트
+            if (window.location.pathname.includes('admin-login.html')) {
+                console.log('이미 로그인됨, 대시보드로 이동');
+                window.location.href = 'admin.html';
             }
         } else {
             // 대시보드에서 로그인 페이지로 리다이렉트
@@ -55,8 +48,7 @@ class AdminSystem {
 
     // 인증 정보 초기화
     clearAuth() {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('adminUser');
+        localStorage.removeItem('adminLoggedIn');
         this.isLoggedIn = false;
         this.currentUser = null;
     }
@@ -214,9 +206,8 @@ class AdminSystem {
             
             if (data.success === true) {
                 // 로그인 성공
-                console.log('로그인 성공! 토큰:', data.token);
-                localStorage.setItem('adminToken', data.token);
-                localStorage.setItem('adminUser', JSON.stringify(data.user));
+                console.log('로그인 성공!');
+                localStorage.setItem('adminLoggedIn', 'true');
                 
                 // 성공 메시지 표시
                 errorMessage.textContent = '로그인 성공! 페이지를 이동합니다...';
@@ -268,12 +259,7 @@ class AdminSystem {
         applicationsList.innerHTML = '<div class="loading">로딩중...</div>';
 
         try {
-            const token = localStorage.getItem('adminToken');
-            const response = await fetch('/api/admin/applications', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await fetch('/api/admin/applications');
 
             if (response.ok) {
                 this.applications = await response.json();
@@ -333,12 +319,10 @@ class AdminSystem {
     // 신청서 상태 업데이트
     async updateApplicationStatus(id, status) {
         try {
-            const token = localStorage.getItem('adminToken');
             const response = await fetch(`/api/admin/applications/${id}`, {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ status })
             });
@@ -367,12 +351,8 @@ class AdminSystem {
         }
 
         try {
-            const token = localStorage.getItem('adminToken');
             const response = await fetch(`/api/admin/applications/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                method: 'DELETE'
             });
 
             if (response.ok) {
@@ -434,12 +414,10 @@ class AdminSystem {
         }
 
         try {
-            const token = localStorage.getItem('adminToken');
             const response = await fetch('/api/admin/change-password', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     currentPassword,
