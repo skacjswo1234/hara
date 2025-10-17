@@ -158,7 +158,15 @@ class AdminSystem {
         
         const errorMessage = document.getElementById('errorMessage');
         
+        // 로딩 상태 표시
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '로그인 중...';
+        submitBtn.disabled = true;
+        
         try {
+            console.log('로그인 시도 중...', { password });
+            
             const response = await fetch('/api/admin/login', {
                 method: 'POST',
                 headers: {
@@ -167,16 +175,23 @@ class AdminSystem {
                 body: JSON.stringify({ password })
             });
             
+            console.log('응답 상태:', response.status);
             const data = await response.json();
+            console.log('응답 데이터:', data);
             
-            if (response.ok) {
+            if (response.ok && data.success) {
                 // 로그인 성공
+                console.log('로그인 성공!');
                 localStorage.setItem('adminToken', data.token);
                 localStorage.setItem('adminUser', JSON.stringify(data.user));
                 
-                window.location.href = 'admin.html';
+                // 잠시 후 리다이렉트
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 500);
             } else {
                 // 로그인 실패
+                console.log('로그인 실패:', data.message);
                 errorMessage.textContent = data.message || '로그인에 실패했습니다.';
                 errorMessage.style.display = 'block';
             }
@@ -184,6 +199,10 @@ class AdminSystem {
             console.error('로그인 오류:', error);
             errorMessage.textContent = '서버 연결 오류가 발생했습니다.';
             errorMessage.style.display = 'block';
+        } finally {
+            // 버튼 상태 복원
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
     }
 

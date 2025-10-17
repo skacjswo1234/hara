@@ -35,27 +35,11 @@ export async function onRequestPost(context) {
             });
         }
 
-        // 데이터베이스에서 관리자 정보 확인 (기본 관리자 계정)
-        const admin = await env['hara-db'].prepare(`
-            SELECT id, username, password FROM admins WHERE username = 'admin'
-        `).first();
-
-        if (!admin) {
-            return new Response(JSON.stringify({
-                success: false,
-                message: '비밀번호가 올바르지 않습니다.'
-            }), {
-                status: 401,
-                headers: {
-                    ...corsHeaders,
-                    'Content-Type': 'application/json'
-                }
-            });
-        }
-
-        // 비밀번호 검증
-        if (password === admin.password) {
-            // 간단한 토큰 생성 (실제 환경에서는 JWT 등을 사용)
+        // 간단한 비밀번호 검증 (임시로 'admin123' 사용)
+        const correctPassword = 'admin123';
+        
+        if (password === correctPassword) {
+            // 간단한 토큰 생성
             const token = btoa('admin:' + Date.now() + ':' + Math.random());
             
             return new Response(JSON.stringify({
@@ -63,8 +47,8 @@ export async function onRequestPost(context) {
                 message: '로그인 성공',
                 token: token,
                 user: {
-                    id: admin.id,
-                    username: admin.username
+                    id: 1,
+                    username: 'admin'
                 }
             }), {
                 status: 200,
@@ -76,7 +60,7 @@ export async function onRequestPost(context) {
         } else {
             return new Response(JSON.stringify({
                 success: false,
-                message: '비밀번호가 올바르지 않습니다.'
+                message: '비밀번호가 올바르지 않습니다. (기본 비밀번호: admin123)'
             }), {
                 status: 401,
                 headers: {
