@@ -28,20 +28,37 @@ class AdminSystem {
         const token = localStorage.getItem('adminToken');
         const user = localStorage.getItem('adminUser');
         
+        console.log('인증 상태 확인:', { token: !!token, user: !!user });
+        
         if (token && user) {
-            this.isLoggedIn = true;
-            this.currentUser = JSON.parse(user);
-            
-            // 로그인 페이지에서 대시보드로 리다이렉트
-            if (window.location.pathname.includes('admin-login.html')) {
-                window.location.href = 'admin.html';
+            try {
+                this.isLoggedIn = true;
+                this.currentUser = JSON.parse(user);
+                
+                // 로그인 페이지에서 대시보드로 리다이렉트
+                if (window.location.pathname.includes('admin-login.html')) {
+                    console.log('이미 로그인됨, 대시보드로 이동');
+                    window.location.href = 'admin.html';
+                }
+            } catch (error) {
+                console.error('사용자 정보 파싱 오류:', error);
+                this.clearAuth();
             }
         } else {
             // 대시보드에서 로그인 페이지로 리다이렉트
             if (window.location.pathname.includes('admin.html')) {
+                console.log('로그인되지 않음, 로그인 페이지로 이동');
                 window.location.href = 'admin-login.html';
             }
         }
+    }
+
+    // 인증 정보 초기화
+    clearAuth() {
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUser');
+        this.isLoggedIn = false;
+        this.currentUser = null;
     }
 
     // 로그인 페이지 초기화
@@ -158,47 +175,77 @@ class AdminSystem {
         
         const errorMessage = document.getElementById('errorMessage');
         
+        // 입력 검증
+        if (!password || password.trim() === '') {
+            errorMessage.textContent = '비밀번호를 입력해주세요.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
         // 로딩 상태 표시
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = '로그인 중...';
         submitBtn.disabled = true;
         
+        // 에러 메시지 숨기기
+        errorMessage.style.display = 'none';
+        
         try {
-            console.log('로그인 시도 중...', { password });
+            console.log('로그인 시도 중...', { password: password });
             
             const response = await fetch('/api/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ password })
+                body: JSON.stringify({ password: password.trim() })
             });
             
             console.log('응답 상태:', response.status);
+            console.log('응답 헤더:', response.headers);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
             console.log('응답 데이터:', data);
             
-            if (response.ok && data.success) {
+            if (data.success === true) {
                 // 로그인 성공
-                console.log('로그인 성공!');
+                console.log('로그인 성공! 토큰:', data.token);
                 localStorage.setItem('adminToken', data.token);
                 localStorage.setItem('adminUser', JSON.stringify(data.user));
                 
+                // 성공 메시지 표시
+                errorMessage.textContent = '로그인 성공! 페이지를 이동합니다...';
+                errorMessage.style.display = 'block';
+                errorMessage.style.background = '#d4edda';
+                errorMessage.style.color = '#155724';
+                errorMessage.style.border = '1px solid #c3e6cb';
+                
                 // 잠시 후 리다이렉트
                 setTimeout(() => {
+                    console.log('페이지 이동 중...');
                     window.location.href = 'admin.html';
-                }, 500);
+                }, 1000);
             } else {
                 // 로그인 실패
                 console.log('로그인 실패:', data.message);
                 errorMessage.textContent = data.message || '로그인에 실패했습니다.';
                 errorMessage.style.display = 'block';
+                errorMessage.style.background = '#fff5f5';
+                errorMessage.style.color = '#dc3545';
+                errorMessage.style.border = '1px solid #fecaca';
             }
         } catch (error) {
             console.error('로그인 오류:', error);
-            errorMessage.textContent = '서버 연결 오류가 발생했습니다.';
+            errorMessage.textContent = `서버 연결 오류가 발생했습니다: ${error.message}`;
             errorMessage.style.display = 'block';
+            errorMessage.style.background = '#fff5f5';
+            errorMessage.style.color = '#dc3545';
+            errorMessage.style.border = '1px solid #fecaca';
         } finally {
             // 버튼 상태 복원
             submitBtn.textContent = originalText;
@@ -208,8 +255,8 @@ class AdminSystem {
 
     // 로그아웃 처리
     handleLogout() {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('adminUser');
+        console.log('로그아웃 처리 중...');
+        this.clearAuth();
         window.location.href = 'admin-login.html';
     }
 
