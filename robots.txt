@@ -6,11 +6,28 @@ Sitemap: https://hara-16o.pages.dev/sitemap.xml
 
 # 관리자 페이지는 크롤링 제외
 Disallow: /admin/
+Disallow: /admin-login.html
+Disallow: /admin.html
 
 # API 엔드포인트는 크롤링 제외
 Disallow: /api/
+Disallow: /functions/
 
 # 캐시 파일들 크롤링 제외
 Disallow: /*.css$
 Disallow: /*.js$
 Disallow: /*.json$
+Disallow: /*.txt$
+
+# 특정 검색엔진별 설정
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /functions/
+
+User-agent: Yeti
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /functions/
