@@ -3,130 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>헌옷하라 - 관리자 대시보드</title>
+    <title>관리자 대시보드</title>
     <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- 관리자 대시보드 -->
-    <div class="dashboard active" id="dashboard">
-        <!-- 헤더 -->
-        <header class="header">
+    <div class="admin-container">
+        <!-- 모바일 헤더 -->
+        <header class="admin-header">
             <div class="header-content">
-                <h1>헌옷하라 관리자</h1>
-                <div class="header-actions">
-                    <button class="change-password-btn" onclick="openChangePasswordModal()">
-                        <i class="fas fa-key"></i>
-                        비밀번호 변경
-                    </button>
-                    <button class="logout-btn" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        로그아웃
-                    </button>
+                <div class="logo-section">
+                    <img src="../images/logo.webp" alt="Logo" class="logo">
+                    <h1>관리자</h1>
                 </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </header>
 
+        <!-- 사이드바 -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">대시보드</a></li>
+                    <li><a href="#applications" class="nav-link" data-section="applications">신청서 관리</a></li>
+                    <li><a href="#settings" class="nav-link" data-section="settings">설정</a></li>
+                    <li><a href="#logout" class="nav-link logout">로그아웃</a></li>
+                </ul>
+            </nav>
+        </aside>
+
         <!-- 메인 콘텐츠 -->
-        <main class="container">
-            <!-- 통계 카드 -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon total">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="stat-number" id="totalCount">0</div>
-                    <div class="stat-label">전체 신청</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-number" id="pendingCount">0</div>
-                    <div class="stat-label">대기 중</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon completed">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="stat-number" id="completedCount">0</div>
-                    <div class="stat-label">완료</div>
-                </div>
-            </div>
-
-            <!-- 신청서 목록 -->
-            <div class="applications-section">
+        <main class="main-content">
+            <!-- 대시보드 섹션 -->
+            <section id="dashboard" class="content-section active">
                 <div class="section-header">
-                    <h2>신청서 목록</h2>
-                    <button class="refresh-btn" onclick="loadApplications()">
-                        <i class="fas fa-sync-alt"></i>
-                        새로고침
-                    </button>
+                    <h2>대시보드</h2>
                 </div>
-                <div class="table-container">
-                    <table class="applications-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>주소</th>
-                                <th>연락처</th>
-                                <th>수거품목</th>
-                                <th>문의사항</th>
-                                <th>상태</th>
-                                <th>신청일</th>
-                                <th>관리</th>
-                            </tr>
-                        </thead>
-                        <tbody id="applicationsTableBody">
-                            <tr>
-                                <td colspan="8" class="loading">
-                                    <i class="fas fa-spinner"></i>
-                                    <br>
-                                    로딩 중...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>총 신청서</h3>
+                        <p class="stat-number" id="totalApplications">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>새 신청서</h3>
+                        <p class="stat-number" id="newApplications">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>처리 완료</h3>
+                        <p class="stat-number" id="processedApplications">0</p>
+                    </div>
                 </div>
-            </div>
-        </main>
-    </div>
+            </section>
 
-    <!-- 비밀번호 변경 모달 -->
-    <div class="modal" id="changePasswordModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeChangePasswordModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3>비밀번호 변경</h3>
-            </div>
-            <div class="modal-body">
-                <form id="changePasswordForm">
-                    <div class="form-group">
-                        <label for="currentPassword">현재 비밀번호</label>
-                        <input type="password" id="currentPassword" required>
+            <!-- 신청서 관리 섹션 -->
+            <section id="applications" class="content-section">
+                <div class="section-header">
+                    <h2>신청서 관리</h2>
+                    <div class="filter-controls">
+                        <select id="statusFilter">
+                            <option value="">전체</option>
+                            <option value="pending">대기중</option>
+                            <option value="processing">처리중</option>
+                            <option value="completed">완료</option>
+                        </select>
+                        <button class="refresh-btn" id="refreshApplications">새로고침</button>
                     </div>
-                    <div class="form-group">
-                        <label for="newPassword">새 비밀번호</label>
-                        <input type="password" id="newPassword" required minlength="4">
+                </div>
+                
+                <div class="applications-list" id="applicationsList">
+                    <div class="loading">로딩중...</div>
+                </div>
+            </section>
+
+            <!-- 설정 섹션 -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>설정</h2>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <h3>비밀번호 변경</h3>
+                        <form id="passwordChangeForm">
+                            <div class="input-group">
+                                <label for="currentPassword">현재 비밀번호</label>
+                                <input type="password" id="currentPassword" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="newPassword">새 비밀번호</label>
+                                <input type="password" id="newPassword" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="confirmPassword">비밀번호 확인</label>
+                                <input type="password" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="submit-btn">비밀번호 변경</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">비밀번호 확인</label>
-                        <input type="password" id="confirmPassword" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeChangePasswordModal()">
-                    취소
-                </button>
-                <button type="button" class="btn btn-primary" onclick="changePassword()">
-                    변경
-                </button>
-            </div>
-        </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 모바일 오버레이 -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
     </div>
 
     <script src="admin.js"></script>

@@ -55,10 +55,10 @@ export async function onRequestPost(context) {
         }
 
         // 새 비밀번호 유효성 검사
-        if (!newPassword || newPassword.length < 4) {
+        if (!newPassword || newPassword.length < 6) {
             return new Response(JSON.stringify({
                 success: false,
-                message: '새 비밀번호는 4자 이상이어야 합니다.'
+                message: '새 비밀번호는 6자 이상이어야 합니다.'
             }), {
                 status: 400,
                 headers: {
