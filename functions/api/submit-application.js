@@ -43,11 +43,11 @@ export async function onRequestPost(context) {
         const result = await env['hara-db'].prepare(`
             INSERT INTO applications (address, contact, inquiry, items, status)
             VALUES (?, ?, ?, ?, 'pending')
-        `).bind(
+        `        ).bind(
             data.address,
             data.contact,
             data.inquiry || '',
-            data.items ? JSON.stringify(data.items) : ''
+            data.items && data.items.length > 0 ? data.items.join(', ') : ''
         ).run();
         console.log('데이터베이스 삽입 결과:', result);
 

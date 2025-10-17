@@ -120,10 +120,21 @@ if (contactForm) {
             // DB에 저장할 전체 주소 (우편번호 + 주소 + 상세주소)
             const fullAddress = postcode ? `(${postcode}) ${address} ${detailAddress}` : `${address} ${detailAddress}`;
             
+            // 체크박스 값들을 한글로 변환
+            const itemMapping = {
+                'kitchen': '주방용품 (후라이팬, 냄비)',
+                'electronics': '폐휴대폰, 폐노트북, 폐컴퓨터',
+                'clothes': '헌옷, 운동화, 구두, 가방, 모자 등',
+                'books': '헌책, 단행본, 전집, 소설, 교과서 등'
+            };
+            
+            const selectedItems = Array.from(contactForm.querySelectorAll('input[name="items"]:checked'))
+                .map(item => itemMapping[item.value] || item.value);
+            
             const data = {
                 address: fullAddress, // DB에는 전체 주소를 하나의 텍스트로 저장
                 contact: contactForm.querySelector('input[type="tel"]').value,
-                items: Array.from(contactForm.querySelectorAll('input[name="items"]:checked')).map(item => item.value),
+                items: selectedItems,
                 inquiry: contactForm.querySelector('textarea').value
             };
             
