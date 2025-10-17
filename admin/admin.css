@@ -301,17 +301,14 @@ body {
 }
 
 .inquiry-actions button {
-    padding: 5px 10px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 12px;
-    min-width: 70px;
-}
-
-.inquiry-actions .process-btn {
-    background: #007bff;
-    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 80px;
+    transition: all 0.2s ease;
 }
 
 .inquiry-actions .complete-btn {
@@ -319,9 +316,19 @@ body {
     color: white;
 }
 
+.inquiry-actions .complete-btn:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
 .inquiry-actions .delete-btn {
     background: #dc3545;
     color: white;
+}
+
+.inquiry-actions .delete-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
 }
 
 /* 비밀번호 폼 */

@@ -91,11 +91,7 @@ async function loadInquiries() {
                 </div>
                 
                 <div class="inquiry-actions">
-                    ${inquiry.status === 'pending' ? 
-                        `<button class="process-btn" onclick="updateStatus(${inquiry.id}, 'processing')">처리중</button>` : 
-                        ''
-                    }
-                    ${inquiry.status === 'processing' ? 
+                    ${inquiry.status !== 'completed' ? 
                         `<button class="complete-btn" onclick="updateStatus(${inquiry.id}, 'completed')">완료</button>` : 
                         ''
                     }
