@@ -11,15 +11,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 로그인 페이지 초기화
 function initLogin() {
+    console.log('🔵 로그인 페이지 초기화 시작');
+    
     const loginForm = document.getElementById('loginForm');
     const messageDiv = document.getElementById('message');
     
+    console.log('🔵 폼 요소 확인:', { loginForm, messageDiv });
+    
+    if (!loginForm) {
+        console.error('❌ 로그인 폼을 찾을 수 없습니다!');
+        return;
+    }
+    
     loginForm.addEventListener('submit', async function(e) {
+        console.log('🔵 폼 제출 이벤트 발생');
         e.preventDefault();
         
         const password = document.getElementById('password').value;
+        console.log('🔵 입력된 비밀번호:', password);
+        
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '로그인 중...';
+        submitBtn.disabled = true;
         
         try {
+            console.log('🔵 API 요청 시작:', '/api/admin/login');
+            
             const response = await fetch('/api/admin/login', {
                 method: 'POST',
                 headers: {
@@ -28,23 +46,43 @@ function initLogin() {
                 body: JSON.stringify({ password })
             });
             
+            console.log('🔵 API 응답 상태:', response.status);
+            console.log('🔵 API 응답 헤더:', response.headers);
+            
+            if (!response.ok) {
+                console.error('❌ API 응답 오류:', response.status, response.statusText);
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
             const data = await response.json();
+            console.log('🔵 API 응답 데이터:', data);
             
             if (data.success) {
-                messageDiv.textContent = '로그인 성공!';
+                console.log('✅ 로그인 성공! 페이지 이동 준비');
+                messageDiv.textContent = '로그인 성공! 페이지를 이동합니다...';
                 messageDiv.className = 'message success';
+                
+                console.log('🔵 1초 후 페이지 이동 예약');
                 setTimeout(() => {
+                    console.log('🔵 페이지 이동 실행:', 'admin.html');
                     window.location.href = 'admin.html';
-                }, 500);
+                }, 1000);
             } else {
+                console.log('❌ 로그인 실패:', data.message);
                 messageDiv.textContent = data.message || '로그인 실패';
                 messageDiv.className = 'message error';
             }
         } catch (error) {
-            messageDiv.textContent = '서버 오류가 발생했습니다.';
+            console.error('❌ 로그인 오류:', error);
+            messageDiv.textContent = `서버 오류가 발생했습니다: ${error.message}`;
             messageDiv.className = 'message error';
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
     });
+    
+    console.log('✅ 로그인 페이지 초기화 완료');
 }
 
 // 대시보드 초기화
