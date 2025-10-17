@@ -1,4 +1,4 @@
-/* 기본 스타일 리셋 */
+/* 기본 스타일 */
 * {
     margin: 0;
     padding: 0;
@@ -294,14 +294,19 @@ button:hover {
 .inquiry-info h4 {
     color: #333;
     font-size: 18px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     font-weight: 600;
 }
 
 .inquiry-info p {
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     font-size: 14px;
     color: #666;
+}
+
+.inquiry-info strong {
+    color: #333;
+    font-weight: 600;
 }
 
 .inquiry-actions {

@@ -75,33 +75,6 @@
         </main>
     </div>
 
-    <script>
-        // HTML 내부 테스트 스크립트
-        console.log('🔴 HTML 내부 스크립트 실행됨!');
-        
-        window.addEventListener('load', function() {
-            console.log('🔴 admin.html 페이지 로드 완료!');
-            
-            // DOM 요소 직접 테스트
-            console.log('🔴 DOM 요소 테스트:');
-            console.log('  - 문의목록 컨테이너:', document.getElementById('inquiriesList'));
-            console.log('  - 비밀번호 폼:', document.getElementById('passwordForm'));
-            console.log('  - 탭 버튼들:', document.querySelectorAll('.nav-btn'));
-            console.log('  - 드롭다운 버튼:', document.getElementById('dropdownToggle'));
-            console.log('  - 로그아웃 버튼들:', document.querySelectorAll('#logoutBtn, #desktopLogoutBtn'));
-            console.log('  - 새로고침 버튼:', document.getElementById('refreshInquiries'));
-            
-            // 간단한 클릭 테스트
-            const testButton = document.createElement('button');
-            testButton.textContent = '테스트 버튼';
-            testButton.style.cssText = 'position: fixed; top: 10px; left: 10px; z-index: 9999; background: red; color: white; padding: 10px;';
-            testButton.onclick = function() {
-                console.log('🔴 테스트 버튼 클릭됨!');
-                alert('테스트 버튼이 작동합니다!');
-            };
-            document.body.appendChild(testButton);
-        });
-    </script>
     <script src="admin.js"></script>
 </body>
 </html>
