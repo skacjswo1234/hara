@@ -3,8 +3,16 @@ let authToken = localStorage.getItem('adminToken');
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    // 현재 페이지가 로그인 페이지인지 확인
-    const isLoginPage = window.location.pathname.includes('admin-login.html');
+    // 현재 페이지가 로그인 페이지인지 확인 (더 안전한 방법)
+    const isLoginPage = window.location.pathname.includes('admin-login.html') || 
+                       document.getElementById('loginPage') !== null;
+    
+    console.log('페이지 로드:', {
+        pathname: window.location.pathname,
+        isLoginPage: isLoginPage,
+        hasLoginPage: !!document.getElementById('loginPage'),
+        hasDashboard: !!document.getElementById('dashboard')
+    });
     
     if (isLoginPage) {
         // 로그인 페이지 초기화
