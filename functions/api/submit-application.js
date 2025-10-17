@@ -2,6 +2,9 @@ export async function onRequestPost(context) {
     const { request, env } = context;
     
     try {
+        console.log('API 호출 시작');
+        console.log('env.hara-db 존재 여부:', !!env['hara-db']);
+        
         // CORS 헤더 설정
         const corsHeaders = {
             'Access-Control-Allow-Origin': '*',
@@ -19,6 +22,7 @@ export async function onRequestPost(context) {
 
         // 요청 데이터 파싱
         const data = await request.json();
+        console.log('받은 데이터:', data);
         
         // 필수 필드 검증
         if (!data.address || !data.contact) {
@@ -35,7 +39,8 @@ export async function onRequestPost(context) {
         }
 
         // D1 데이터베이스에 데이터 삽입
-        const result = await env.hara-db.prepare(`
+        console.log('데이터베이스 삽입 시작');
+        const result = await env['hara-db'].prepare(`
             INSERT INTO applications (address, contact, inquiry, items, status)
             VALUES (?, ?, ?, ?, 'pending')
         `).bind(
@@ -44,6 +49,7 @@ export async function onRequestPost(context) {
             data.inquiry || '',
             data.items ? JSON.stringify(data.items) : ''
         ).run();
+        console.log('데이터베이스 삽입 결과:', result);
 
         if (result.success) {
             return new Response(JSON.stringify({
@@ -66,7 +72,9 @@ export async function onRequestPost(context) {
         
         return new Response(JSON.stringify({
             success: false,
-            message: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+            message: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+            error: error.message,
+            stack: error.stack
         }), {
             status: 500,
             headers: {
