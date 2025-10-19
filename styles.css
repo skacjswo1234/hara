@@ -1371,7 +1371,7 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: start;
+    align-items: stretch;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -1381,6 +1381,9 @@ section {
     padding: 2.5rem;
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contact-info-card h3 {
@@ -1400,6 +1403,10 @@ section {
     text-align: center;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     border: 3px solid #03c75a;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .form-icon {
@@ -1446,15 +1453,20 @@ section {
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .naver-form-iframe iframe {
     width: 100%;
-    height: 600px;
+    height: 100%;
+    min-height: 600px;
     border: none;
     border-radius: 15px;
     display: block;
     transition: all 0.3s ease;
+    flex: 1;
 }
 
 .naver-form-iframe:hover iframe {
@@ -1871,6 +1883,7 @@ html {
     
     .naver-form-section {
         padding: 2.5rem 2rem;
+        min-height: 700px;
     }
     
     .naver-form-iframe {
@@ -1878,7 +1891,7 @@ html {
     }
     
     .naver-form-iframe iframe {
-        height: 500px;
+        min-height: 500px;
     }
     
     .footer-content {
@@ -2108,6 +2121,7 @@ html {
     .naver-form-section {
         padding: 2rem 1.5rem;
         border-width: 2px;
+        min-height: 600px;
     }
     
     .form-icon i {
@@ -2128,7 +2142,7 @@ html {
     }
     
     .naver-form-iframe iframe {
-        height: 450px;
+        min-height: 400px;
     }
     
     .form-notice {
