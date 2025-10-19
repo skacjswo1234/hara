@@ -1883,7 +1883,7 @@ html {
     
     .naver-form-section {
         padding: 2.5rem 2rem;
-        min-height: 700px;
+        min-height: 1000px;
     }
     
     .naver-form-iframe {
@@ -1891,7 +1891,7 @@ html {
     }
     
     .naver-form-iframe iframe {
-        min-height: 500px;
+        min-height: 800px;
     }
     
     .footer-content {
@@ -2121,7 +2121,7 @@ html {
     .naver-form-section {
         padding: 2rem 1.5rem;
         border-width: 2px;
-        min-height: 600px;
+        min-height: 1200px;
     }
     
     .form-icon i {
@@ -2142,7 +2142,7 @@ html {
     }
     
     .naver-form-iframe iframe {
-        min-height: 400px;
+        min-height: 1000px;
     }
     
     .form-notice {
@@ -2264,6 +2264,16 @@ html {
         width: 65px;
         height: 65px;
         font-size: 1.1rem;
+    }
+    
+    /* 모바일에서 iframe 스크롤 최적화 */
+    .naver-form-iframe {
+        -webkit-overflow-scrolling: touch;
+        overflow: auto;
+    }
+    
+    .naver-form-iframe iframe {
+        -webkit-overflow-scrolling: touch;
     }
 }
 
