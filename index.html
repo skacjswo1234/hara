@@ -37,7 +37,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cooper+Black:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=TT+Tricks:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     <!-- 구조화된 데이터 (JSON-LD) -->
     <script type="application/ld+json">
@@ -147,7 +146,8 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">신청서 작성하기</a>
+                    <a href="https://naver.me/G4GRYjwA" target="_blank" rel="noopener noreferrer" class="btn btn-primary">신청서 작성하기</a>
+                    <a href="#contact" class="btn btn-secondary">연락처 보기</a>
                 </div>
             </div>
         </div>
@@ -424,11 +424,12 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2>신청서 작성</h2>
+                <h2>수거 신청하기</h2>
+                <p>간편하게 온라인으로 신청하세요</p>
             </div>
             
-            <div class="contact-content">
-                <div class="contact-info">
+            <div class="contact-content-simple">
+                <div class="contact-info-card">
                     <h3>연락처 정보</h3>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
@@ -441,55 +442,37 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h4>서비스 지역</h4>
-                            <p>서울 전 지역 , 경기 일부 지역</p>
+                            <p>서울 전 지역, 경기 일부 지역</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>접수 시간</h4>
+                            <p>오전 9시 ~ 오후 5시 (당일 수거 가능)</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h3>수거신청</h3>
-                    <form>
-                        <div class="form-group">
-                            <div class="address-input-group">
-                                <input type="text" id="postcode" placeholder="우편번호" readonly>
-                                <button type="button" id="addressSearchBtn" class="address-search-btn">주소 검색</button>
-                            </div>
-                            <input type="text" id="address" placeholder="주소" readonly required>
-                            <input type="text" id="detailAddress" placeholder="상세주소" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="연락처" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">수거 품목 선택 (복수 선택 가능)</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="kitchen">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">🍳 주방 (후라이팬, 냄비)</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="electronics">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">💻 폐휴대폰, 폐노트북, 폐컴퓨터</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="clothes">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">👕<br> 헌옷, 운동화, 구두, 가방, 모자 등</span>
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="items" value="books">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">📚<br> 헌책, 단행본, 전집, 소설, 교과서 등</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="문의사항을 입력해주세요" rows="5"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">신청서 작성 완료하기</button>
-                    </form>
+                <div class="naver-form-section">
+                    <div class="form-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>온라인 신청서</h3>
+                    <p>아래 폼을 통해 간편하게 수거 신청을 하실 수 있습니다.</p>
+                    
+                    <div class="naver-form-iframe">
+                        <iframe 
+                            src="https://naver.me/G4GRYjwA" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0"
+                            allowtransparency="true"
+                            title="하라 수거 신청서">
+                        </iframe>
+                    </div>
+                    
+                    <p class="form-notice">* 작성하신 내용은 빠르게 확인 후 연락드리겠습니다.</p>
                 </div>
             </div>
         </div>

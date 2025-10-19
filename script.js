@@ -4,7 +4,6 @@ const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const nav = document.querySelector('.nav');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section');
-const contactForm = document.querySelector('.contact-form form');
 
 // 스크롤 이벤트 - 헤더 스타일 변경
 window.addEventListener('scroll', () => {
@@ -99,86 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 폼 제출 처리
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+// 네이버폼 iframe 로딩 상태 추적
+document.addEventListener('DOMContentLoaded', () => {
+    const iframe = document.querySelector('.naver-form-iframe iframe');
+    if (iframe) {
+        iframe.addEventListener('load', () => {
+            console.log('네이버폼 iframe 로딩 완료');
+        });
         
-        // 제출 버튼 비활성화 및 로딩 상태
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = '제출 중...';
-        
-        try {
-            // 폼 데이터 수집
-            const formData = new FormData(contactForm);
-            const postcode = document.getElementById('postcode').value;
-            const address = document.getElementById('address').value;
-            const detailAddress = document.getElementById('detailAddress').value;
-            
-            // DB에 저장할 전체 주소 (우편번호 + 주소 + 상세주소)
-            const fullAddress = postcode ? `(${postcode}) ${address} ${detailAddress}` : `${address} ${detailAddress}`;
-            
-            // 체크박스 값들을 한글로 변환
-            const itemMapping = {
-                'kitchen': '주방용품 (후라이팬, 냄비)',
-                'electronics': '폐휴대폰, 폐노트북, 폐컴퓨터',
-                'clothes': '헌옷, 운동화, 구두, 가방, 모자 등',
-                'books': '헌책, 단행본, 전집, 소설, 교과서 등'
-            };
-            
-            const selectedItems = Array.from(contactForm.querySelectorAll('input[name="items"]:checked'))
-                .map(item => itemMapping[item.value] || item.value);
-            
-            const data = {
-                address: fullAddress, // DB에는 전체 주소를 하나의 텍스트로 저장
-                contact: contactForm.querySelector('input[type="tel"]').value,
-                items: selectedItems,
-                inquiry: contactForm.querySelector('textarea').value
-            };
-            
-            // 간단한 유효성 검사
-            if (!address || !detailAddress || !data.contact) {
-                alert('주소와 연락처를 모두 입력해주세요.');
-                return;
-            }
-            
-            // 전화번호 형식 검사
-            const phoneRegex = /^[0-9-+\s()]+$/;
-            if (!phoneRegex.test(data.contact)) {
-                alert('올바른 전화번호를 입력해주세요.');
-                return;
-            }
-            
-            // API로 데이터 전송
-            const response = await fetch('/api/submit-application', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                alert('신청서가 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
-                contactForm.reset();
-            } else {
-                alert(result.message || '신청서 제출 중 오류가 발생했습니다.');
-            }
-            
-        } catch (error) {
-            console.error('신청서 제출 오류:', error);
-            alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-        } finally {
-            // 제출 버튼 복원
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-        }
-    });
-}
+        iframe.addEventListener('error', () => {
+            console.log('네이버폼 iframe 로딩 오류');
+        });
+    }
+});
 
 // 가격 업데이트 기능 (실시간 가격 변경 가능)
 function updatePrice(item, newPrice) {
@@ -244,28 +176,6 @@ window.addEventListener('resize', () => {
     console.log('화면 크기 변경됨:', window.innerWidth);
 });
 
-// 주소 검색 기능
-document.addEventListener('DOMContentLoaded', () => {
-    const addressSearchBtn = document.getElementById('addressSearchBtn');
-    const postcodeInput = document.getElementById('postcode');
-    const addressInput = document.getElementById('address');
-    const detailAddressInput = document.getElementById('detailAddress');
-    
-    if (addressSearchBtn) {
-        addressSearchBtn.addEventListener('click', () => {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    postcodeInput.value = data.zonecode;
-                    addressInput.value = data.address;
-                    
-                    // 상세주소 입력 필드에 포커스
-                    detailAddressInput.focus();
-                }
-            }).open();
-        });
-    }
-});
 
 // 플로팅 버튼 기능
 document.addEventListener('DOMContentLoaded', () => {

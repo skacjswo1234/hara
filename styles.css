@@ -1366,6 +1366,109 @@ section {
     align-items: start;
 }
 
+/* 간단한 연락처 + 네이버폼 레이아웃 */
+.contact-content-simple {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-info-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-card h3 {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 네이버폼 섹션 */
+.naver-form-section {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 3px solid #03c75a;
+}
+
+.form-icon {
+    margin-bottom: 1.5rem;
+}
+
+.form-icon i {
+    font-size: 4rem;
+    color: #03c75a;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.naver-form-section h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.naver-form-section p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* 네이버폼 iframe 스타일 */
+.naver-form-iframe {
+    width: 100%;
+    margin: 2rem 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+.naver-form-iframe iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 15px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.naver-form-iframe:hover iframe {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.form-notice {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
 .contact-info h3,
 .contact-form h3 {
     font-size: 2.4rem;
@@ -1757,6 +1860,27 @@ html {
         gap: 2rem;
     }
     
+    .contact-content-simple {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-info-card {
+        padding: 2rem;
+    }
+    
+    .naver-form-section {
+        padding: 2.5rem 2rem;
+    }
+    
+    .naver-form-iframe {
+        margin: 1.5rem 0;
+    }
+    
+    .naver-form-iframe iframe {
+        height: 500px;
+    }
+    
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -1975,6 +2099,41 @@ html {
     .service-card,
     .price-card {
         padding: 1.5rem;
+    }
+    
+    .contact-info-card {
+        padding: 1.5rem;
+    }
+    
+    .naver-form-section {
+        padding: 2rem 1.5rem;
+        border-width: 2px;
+    }
+    
+    .form-icon i {
+        font-size: 3rem;
+    }
+    
+    .naver-form-section h3 {
+        font-size: 1.8rem;
+    }
+    
+    .naver-form-section p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .naver-form-iframe {
+        margin: 1rem 0;
+    }
+    
+    .naver-form-iframe iframe {
+        height: 450px;
+    }
+    
+    .form-notice {
+        font-size: 0.85rem;
+        margin-top: 1rem;
     }
 }
 
