@@ -38,7 +38,9 @@ export async function onRequestPost(context) {
             });
         }
 
-        // D1 데이터베이스에 데이터 삽입
+        // D1 데이터베이스에 데이터 삽입 (비활성화 - 카카오톡/전화 문의로 변경)
+        // 나중에 DB가 필요할 때 다시 활성화
+        /*
         console.log('데이터베이스 삽입 시작');
         const result = await env['hara-db'].prepare(`
             INSERT INTO applications (address, contact, inquiry, items, status)
@@ -66,6 +68,19 @@ export async function onRequestPost(context) {
         } else {
             throw new Error('데이터베이스 삽입 실패');
         }
+        */
+        
+        // DB 없이 성공 응답만 반환 (실제로는 카카오톡/전화로 처리)
+        return new Response(JSON.stringify({
+            success: true,
+            message: '카카오톡 또는 전화로 문의해주세요.'
+        }), {
+            status: 200,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json'
+            }
+        });
 
     } catch (error) {
         console.error('신청서 제출 오류:', error);

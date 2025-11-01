@@ -22,7 +22,9 @@ export async function onRequestGet(context) {
         // 간단한 인증 확인 (비밀번호 기반)
         console.log('신청서 목록 조회 요청');
 
-        // D1 데이터베이스에서 신청서 목록 조회
+        // D1 데이터베이스에서 신청서 목록 조회 (비활성화)
+        // 나중에 DB가 필요할 때 다시 활성화
+        /*
         let applications;
         try {
             applications = await env['hara-db'].prepare(`
@@ -69,6 +71,16 @@ export async function onRequestGet(context) {
         }));
 
         return new Response(JSON.stringify(formattedApplications), {
+            status: 200,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json'
+            }
+        });
+        */
+        
+        // DB 없이 빈 배열 반환
+        return new Response(JSON.stringify([]), {
             status: 200,
             headers: {
                 ...corsHeaders,

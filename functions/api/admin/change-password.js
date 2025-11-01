@@ -24,7 +24,9 @@ export async function onRequestPost(context) {
         const data = await request.json();
         const { currentPassword, newPassword } = data;
 
-        // 현재 비밀번호 검증 (데이터베이스에서 확인)
+        // 현재 비밀번호 검증 (데이터베이스에서 확인) - 비활성화
+        // 나중에 DB가 필요할 때 다시 활성화
+        /*
         const admin = await env['hara-db'].prepare(`
             SELECT id, password FROM admins WHERE username = 'admin'
         `).first();
@@ -72,6 +74,18 @@ export async function onRequestPost(context) {
             message: '비밀번호가 성공적으로 변경되었습니다.'
         }), {
             status: 200,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json'
+            }
+        });
+        */
+        
+        return new Response(JSON.stringify({
+            success: false,
+            message: '데이터베이스가 비활성화되어 있습니다.'
+        }), {
+            status: 503,
             headers: {
                 ...corsHeaders,
                 'Content-Type': 'application/json'

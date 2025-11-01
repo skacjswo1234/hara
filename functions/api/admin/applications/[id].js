@@ -49,7 +49,9 @@ export async function onRequestPost(context) {
             });
         }
 
-        // 상태 업데이트
+        // 상태 업데이트 (비활성화 - DB 없이 동작)
+        // 나중에 DB가 필요할 때 다시 활성화
+        /*
         const result = await env['hara-db'].prepare(`
             UPDATE applications 
             SET status = ?, updated_at = CURRENT_TIMESTAMP
@@ -70,6 +72,18 @@ export async function onRequestPost(context) {
         } else {
             throw new Error('상태 업데이트 실패');
         }
+        */
+        
+        return new Response(JSON.stringify({
+            success: false,
+            message: '데이터베이스가 비활성화되어 있습니다.'
+        }), {
+            status: 503,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json'
+            }
+        });
 
     } catch (error) {
         console.error('상태 업데이트 오류:', error);
@@ -121,7 +135,9 @@ export async function onRequestDelete(context) {
             });
         }
 
-        // 신청서 삭제
+        // 신청서 삭제 (비활성화 - DB 없이 동작)
+        // 나중에 DB가 필요할 때 다시 활성화
+        /*
         const result = await env['hara-db'].prepare(`
             DELETE FROM applications WHERE id = ?
         `).bind(id).run();
@@ -140,6 +156,18 @@ export async function onRequestDelete(context) {
         } else {
             throw new Error('신청서 삭제 실패');
         }
+        */
+        
+        return new Response(JSON.stringify({
+            success: false,
+            message: '데이터베이스가 비활성화되어 있습니다.'
+        }), {
+            status: 503,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json'
+            }
+        });
 
     } catch (error) {
         console.error('신청서 삭제 오류:', error);
