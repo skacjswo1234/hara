@@ -98,19 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 네이버폼 iframe 로딩 상태 추적
-document.addEventListener('DOMContentLoaded', () => {
-    const iframe = document.querySelector('.naver-form-iframe iframe');
-    if (iframe) {
-        iframe.addEventListener('load', () => {
-            console.log('네이버폼 iframe 로딩 완료');
-        });
-        
-        iframe.addEventListener('error', () => {
-            console.log('네이버폼 iframe 로딩 오류');
-        });
-    }
-});
 
 // 가격 업데이트 기능 (실시간 가격 변경 가능)
 function updatePrice(item, newPrice) {

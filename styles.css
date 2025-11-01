@@ -1395,27 +1395,28 @@ section {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* 네이버폼 섹션 */
-.naver-form-section {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+/* 카카오톡 채팅 섹션 */
+.kakao-chat-section {
+    background: linear-gradient(135deg, #FEE500 0%, #FFE55C 100%);
     padding: 3rem 2.5rem;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    border: 3px solid #03c75a;
-    min-height: 800px;
+    border: 3px solid #FEE500;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 
-.form-icon {
+.kakao-icon {
     margin-bottom: 1.5rem;
 }
 
-.form-icon i {
-    font-size: 4rem;
-    color: #03c75a;
+.kakao-icon i {
+    font-size: 5rem;
+    color: #3C1E1E;
     animation: pulse 2s infinite;
 }
 
@@ -1428,57 +1429,63 @@ section {
     }
 }
 
-.naver-form-section h3 {
+.kakao-chat-section h3 {
     font-size: 2.2rem;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: #3C1E1E;
     font-weight: 900;
     letter-spacing: 0.5px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.naver-form-section p {
+.kakao-chat-section p {
     font-size: 1.2rem;
-    color: var(--text-color);
-    margin-bottom: 2rem;
+    color: #3C1E1E;
+    margin-bottom: 2.5rem;
     line-height: 1.6;
     font-weight: 600;
 }
 
-/* 네이버폼 iframe 스타일 */
-.naver-form-iframe {
-    width: 100%;
-    margin: 2rem 0;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    background: white;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.naver-form-iframe iframe {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    border: none;
-    border-radius: 15px;
-    display: block;
+/* 카카오톡 채팅 버튼 */
+.kakao-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 3rem;
+    background: #3C1E1E;
+    color: #FEE500;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    flex: 1;
+    box-shadow: 0 4px 15px rgba(60, 30, 30, 0.3);
+    border: 2px solid #3C1E1E;
 }
 
-.naver-form-iframe:hover iframe {
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+.kakao-chat-btn:hover {
+    background: #2A1515;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(60, 30, 30, 0.4);
 }
 
-.form-notice {
+.kakao-chat-btn:active {
+    transform: translateY(-1px);
+}
+
+.kakao-chat-btn i {
+    font-size: 1.6rem;
+}
+
+.chat-notice {
     font-size: 0.95rem;
-    color: #666;
-    margin-top: 1.5rem;
+    color: #3C1E1E;
+    margin-top: 2rem;
     font-weight: 500;
-    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.9;
 }
 
 .contact-info h3,
@@ -1881,17 +1888,18 @@ html {
         padding: 2rem;
     }
     
-    .naver-form-section {
+    .kakao-chat-section {
         padding: 2.5rem 2rem;
-        min-height: 1000px;
+        min-height: auto;
     }
     
-    .naver-form-iframe {
-        margin: 1.5rem 0;
+    .kakao-chat-btn {
+        padding: 1.3rem 2.5rem;
+        font-size: 1.2rem;
     }
     
-    .naver-form-iframe iframe {
-        min-height: 800px;
+    .kakao-icon i {
+        font-size: 4rem;
     }
     
     .footer-content {
@@ -2118,36 +2126,39 @@ html {
         padding: 1.5rem;
     }
     
-    .naver-form-section {
+    .kakao-chat-section {
         padding: 2rem 1.5rem;
         border-width: 2px;
-        min-height: 1200px;
+        min-height: auto;
     }
     
-    .form-icon i {
-        font-size: 3rem;
+    .kakao-icon i {
+        font-size: 3.5rem;
     }
     
-    .naver-form-section h3 {
+    .kakao-chat-section h3 {
         font-size: 1.8rem;
     }
     
-    .naver-form-section p {
+    .kakao-chat-section p {
         font-size: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
     
-    .naver-form-iframe {
-        margin: 1rem 0;
+    .kakao-chat-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 300px;
     }
     
-    .naver-form-iframe iframe {
-        min-height: 1000px;
+    .kakao-chat-btn i {
+        font-size: 1.3rem;
     }
     
-    .form-notice {
+    .chat-notice {
         font-size: 0.85rem;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
 }
 
@@ -2266,14 +2277,10 @@ html {
         font-size: 1.1rem;
     }
     
-    /* 모바일에서 iframe 스크롤 최적화 */
-    .naver-form-iframe {
-        -webkit-overflow-scrolling: touch;
-        overflow: auto;
-    }
-    
-    .naver-form-iframe iframe {
-        -webkit-overflow-scrolling: touch;
+    /* 카카오톡 채팅 버튼 모바일 최적화 */
+    .kakao-chat-btn {
+        width: 100%;
+        max-width: 350px;
     }
 }
 
